@@ -1,0 +1,24 @@
+{
+  "name": "chrome-bookmark-tags",
+  "version": "0.1.0",
+  "description": "Chrome bookmarks with tagging... seriously, why is this not already a thing?\"",
+  "main": "chrome-bookmark-tags.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kand/chrome-bookmark-tags.git"
+  },
+  "keywords": [
+    "chrome",
+    "bookmarks",
+    "tags"
+  ],
+  "author": "Andrew Kos <akos123@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kand/chrome-bookmark-tags/issues"
+  },
+  "homepage": "https://github.com/kand/chrome-bookmark-tags",
+  "devDependencies": {
+    "babel": "^5.1.11"
+  }
+}
