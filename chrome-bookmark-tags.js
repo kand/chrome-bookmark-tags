@@ -1,5 +1,45 @@
 (function (bookmarks, storage) {
 
+  // create a searchable data object for searching tags
+  var tags;
+  var tags_keys;
+  var refresh_tags = function () {
+    storage.sync.get(null, function (data) {
+      // reset tag variables
+      tags = {};
+      tags_keys = [];
+
+      // loop through all bookmark ids
+      var id;
+      for (id in data) {
+        var bookmark_tags = data[id];
+        var i;
+        for (i = 0; i < bookmark_tags.length; i++) {
+          var tag = bookmark_tags[i];
+          if (tag in tags) {
+            // this tag already exists, just add id if unique
+            if (!(id in tags[tag])) {
+              tags[tag].push(id);
+            }
+          } else {
+            // doesn't exist yet, initialize it
+            tags[tag] = [id];
+          }
+        }
+      }
+
+      // keep a list of all the keys
+      tags_keys = Object.keys(tags);
+    });
+  };
+
+  // tags stored as {<bookmark_id>: [<tag>,...]}
+  var add_tags = function (id, tags) {
+    var bookmark_info = {};
+    bookmark_info[id] = tags;
+    storage.sync.set(bookmark_info);
+  };
+
   var dfs_tree_writer = function (dom_node, root) {
     var i, child;
     for (i = 0; i < root.children.length; i++) {
@@ -49,13 +89,15 @@
             .split(',');
 
             // add bookmark tags to storage
-            var bookmark_info = {};
-            bookmark_info[entry_id] = tags;
-            storage.sync.set(bookmark_info);
+            add_tags(entry_id, tags);
         } else {
           // ensure the storage key is removed
           storage.sync.remove(entry_id);
         }
+
+        // refresh tags
+        refresh_tags();
+
       }).bind(input_ele, child.id));
       li_ele.appendChild(save_btn);
 
@@ -68,53 +110,6 @@
       }
     }
   };
-
-  // grab the tree and start writing it out
-  var bookmark_tree = bookmarks.getTree(function (tree) {
-
-    // find container to store list in
-    var bookmark_list = document.getElementById('bookmarkList');
-
-    if (tree.length > 0) {
-      // start off the list
-      bookmark_list.textContent = '';
-      var ul_ele = document.createElement('ul');
-
-      var i;
-      for (i = 0; i < tree.length; i++) {
-        dfs_tree_writer(ul_ele, tree[i]);
-      }
-    } else {
-      bookmark_list.textContent = 'No bookmarks found.';
-    }
-
-    bookmark_list.appendChild(ul_ele);
-  });
-
-  // create a searchable data object for searching tags
-  var tags = {};
-  var tags_keys = [];
-  storage.sync.get(null, function (data) {
-    // loop through all bookmark ids
-    var id;
-    for (id in data) {
-      var bookmark_tags = data[id];
-      var i;
-      for (i = 0; i < bookmark_tags.length; i++) {
-        var tag = bookmark_tags[i];
-        if (tag in tags) {
-          // this tag already exists, just add id
-          tags[tag].push(id);
-        } else {
-          // doesn't exist yet, initialize it
-          tags[tag] = [id];
-        }
-      }
-    }
-
-    // keep a list of all the keys
-    tags_keys = Object.keys(tags);
-  });
 
   // set up tag search input and search results
   var search_input = document.getElementById('searchInput');
@@ -171,5 +166,33 @@
       search_results.innerHTML = 'No search results.';
     }
   });
+
+  var setup = function () {
+    // grab the tree and start writing it out
+    bookmarks.getTree(function (tree) {
+
+      // find container to store list in
+      var bookmark_list = document.getElementById('bookmarkList');
+
+      if (tree.length > 0) {
+        // start off the list
+        bookmark_list.textContent = '';
+        var ul_ele = document.createElement('ul');
+
+        var i;
+        for (i = 0; i < tree.length; i++) {
+          dfs_tree_writer(ul_ele, tree[i]);
+        }
+      } else {
+        bookmark_list.textContent = 'No bookmarks found.';
+      }
+
+      bookmark_list.appendChild(ul_ele);
+
+      refresh_tags();
+    });
+  };
+
+  setup();
 
 })(chrome.bookmarks, chrome.storage);
