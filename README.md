@@ -12,10 +12,12 @@ Bookmark, tag, take notes.
 
 3. Navigate to extension settings [chrome://extensions/]()
 
-4. Click `Load unpacked extension...` and select the top level folder of this repo
+4. Ensure `Developer mode` checkbox is checked
 
-5. Enable `Bookmark Tags` extension which should now be listed in the extensions list
+5. Click `Load unpacked extension...` and select the top level folder of this repo
 
-6. Navigate to [chrome://bookmarks](), Chrome's default bookmarks page is now replaced by this bookmark manager
+6. Enable `Bookmark Tags` extension which should now be listed in the extensions list
+
+7. Navigate to [chrome://bookmarks](), Chrome's default bookmarks page is now replaced by this bookmark manager
 
 
