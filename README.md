@@ -20,4 +20,11 @@ Bookmark, tag, take notes.
 
 7. Navigate to [chrome://bookmarks](), Chrome's default bookmarks page is now replaced by this bookmark manager
 
+## Development
+
+1. Clone down this repo and navigate to its directory
+
+2. Install dependencies with `npm i`
+
+3. Start continuous build with `npm run dev`
 

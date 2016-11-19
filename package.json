@@ -8,7 +8,7 @@
     "url": "https://github.com/kand/chrome-bookmark-tags.git"
   },
   "scripts": {
-    "build": "./node_modules/.bin/babel src/chrome-bookmark-tags.js -s -o dist/chrome-bookmark-tags.js"
+    "dev": "mkdir -p dist && nodemon --exec babel src -s -o dist/chrome-bookmark-tags.js"
   },
   "keywords": [
     "chrome",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/kand/chrome-bookmark-tags",
   "devDependencies": {
-    "babel": "^5.1.11"
+    "babel": "^5.1.11",
+    "nodemon": "^1.11.0"
   }
 }
