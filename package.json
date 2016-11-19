@@ -1,7 +1,6 @@
 {
   "name": "chrome-bookmark-tags",
   "version": "0.1.0",
-  "description": "Chrome bookmarks with tagging... seriously, why is this not already a thing?\"",
   "main": "src/chrome-bookmark-tags.js",
   "repository": {
     "type": "git",
