@@ -22,9 +22,15 @@ Bookmark, tag, take notes.
 
 ## Development
 
+### Continuous
+
 1. Clone down this repo and navigate to its directory
 
 2. Install dependencies with `npm i`
 
 3. Start continuous build with `npm run dev`
+
+### Build
+
+1. Build once with `npm run build`
 

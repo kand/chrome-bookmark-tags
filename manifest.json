@@ -5,7 +5,7 @@
   "description": "Tags for bookmarks... seriously, why is this not already a thing?",
   "author": "Andrew Kos <akos123@gmail.com>",
   "chrome_url_overrides": {
-    "bookmarks": "src/chrome-bookmark-tags.html"
+    "bookmarks": "dist/chrome-bookmark-tags.html"
   },
   "permissions": [
     "bookmarks",
