@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "author": "Andrew Kos <akos123@gmail.com>",
   "chrome_url_overrides": {
-    "bookmarks": "dist/chrome-bookmark-tags.html"
+    "bookmarks": "dist/index.html"
   },
   "permissions": [
     "bookmarks",
