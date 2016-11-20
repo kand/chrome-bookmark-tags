@@ -1,4 +1,5 @@
-(function (bookmarks, storage) {
+
+!(function (bookmarks, storage) {
 
   // create a searchable data object for searching tags
   var tags;
