@@ -1,4 +1,22 @@
-(function (bookmarks, storage) {
+!(() => {
+
+  let ws = new WebSocket('ws://localhost:9000');
+
+  ws.onopen = () => {
+    console.log('live reload connection opened');
+    ws.onmessage = (message) => {
+      if (message.data === 'do-reload-client') {
+       window.location.reload();
+      }
+    };
+  };
+
+  window.onbeforeunload = () => {
+    ws.close()
+  };
+})()
+
+!(function (bookmarks, storage) {
 
   // create a searchable data object for searching tags
   var tags;

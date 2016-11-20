@@ -1,5 +1,8 @@
 {
   "ext": "js,html",
-  "ignore": ["dist/**"]
+  "ignore": ["dist/**"],
+  "events": {
+    "exit": "node scripts/send-live-reload"
+  }
 }
 

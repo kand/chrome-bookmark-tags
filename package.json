@@ -7,8 +7,9 @@
     "url": "https://github.com/kand/chrome-bookmark-tags.git"
   },
   "scripts": {
-    "build": "mkdir -p dist && babel src -s -d dist --copy-files",
-    "dev": "nodemon --exec npm build"
+    "build": "babel src -s -d dist --copy-files",
+    "dev": "nodemon --exec npm run build",
+    "livereload": "node scripts/live-reload-server"
   },
   "keywords": [
     "chrome",
@@ -24,6 +25,8 @@
   "devDependencies": {
     "babel": "^5.1.11",
     "babel-cli": "^6.18.0",
-    "nodemon": "^1.11.0"
+    "babel-preset-stage-3": "^6.17.0",
+    "nodemon": "^1.11.0",
+    "ws": "^1.1.1"
   }
 }
