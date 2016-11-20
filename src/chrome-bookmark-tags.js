@@ -2,18 +2,18 @@
 
   let ws = new WebSocket('ws://localhost:9000');
 
-  ws.onopen = () => {
+  ws.addEventListener('open', () => {
     console.log('live reload connection opened');
-    ws.onmessage = (message) => {
+    ws.addEventListener('message', (message) => {
       if (message.data === 'do-reload-client') {
        window.location.reload();
       }
-    };
-  };
+    });
+  });
 
-  window.onbeforeunload = () => {
+  window.addEventListener('beforeunload', () => {
     ws.close()
-  };
+  });
 })()
 
 !(function (bookmarks, storage) {

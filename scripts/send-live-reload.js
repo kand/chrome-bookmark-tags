@@ -8,3 +8,7 @@ ws.on('open', () => {
   ws.close();
 });
 
+ws.on('error', (error) => {
+  console.error(error.code, 'not able to connect to live reload. have you started it with `npm run livereload`?');
+});
+

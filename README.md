@@ -30,6 +30,8 @@ Bookmark, tag, take notes.
 
 3. Start continuous build with `npm run dev`
 
+4. Activate live reload with `npm run livreload` in a sibling process
+
 ### Build
 
 1. Build once with `npm run build`
