@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as BookmarkActions from './Actions';
+import * as BookmarkActions from './BookmarkActions';
+import Bookmark from './Bookmark';
 
 class BookmarkList extends React.Component {
 
@@ -12,7 +13,13 @@ class BookmarkList extends React.Component {
   }
 
   render () {
-    return <ul>This is a bookmark list {this.props.bookmarks.length}</ul>;
+    let bookmarks = this.props.bookmarks.map((bookmark) => {
+      return <li key={bookmark.id}><Bookmark bookmark={bookmark} /></li>
+    });
+
+    return <ul>
+      {bookmarks}
+    </ul>;
   }
 }
 

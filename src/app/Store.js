@@ -9,7 +9,7 @@ import thunkMiddleware from 'redux-thunk';
 import {
   FETCH_BOOKMARKS_START,
   FETCH_BOOKMARKS_SUCCESS
-} from './Actions';
+} from './BookmarkActions';
 
 
 function bookmarks (state = {
