@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
-import BookmarkList from './app/BookmarkList';
+import AppRoot from './app/AppRoot';
+import store from './app/Store';
 
 let root = document.createElement('div');
 root.id = 'root';
@@ -9,7 +11,9 @@ root.id = 'root';
 document.body.appendChild(root);
 
 ReactDOM.render(
-  <BookmarkList />,
+  <Provider store={store}>
+    <AppRoot />
+  </Provider>,
   root
 );
 

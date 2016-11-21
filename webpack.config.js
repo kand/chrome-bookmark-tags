@@ -8,7 +8,9 @@ module.exports = [{
     app: './' + path.join('src', 'app'),
     vendor: [
       'react',
-      'react-dom'
+      'react-dom',
+      'redux',
+      'redux-thunk'
     ]
   },
   output: {
@@ -17,7 +19,7 @@ module.exports = [{
   },
   module: {
     preLoaders: [{
-      test: /\.jsx$/,
+      test: /\.jsx?$/,
       loader: 'babel',
       query: {
         plugins: [
@@ -26,7 +28,8 @@ module.exports = [{
         ],
         presets: [
           'latest',
-          'react'
+          'react',
+          'stage-3'
         ]
       }
     }],
