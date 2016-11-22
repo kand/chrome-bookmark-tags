@@ -1,6 +1,6 @@
 import { bindActionCreators } from 'redux';
 
-import { flattenBookmarksTree } from './Utils';
+import { flattenBookmarksTree } from 'Utils';
 
 export const FETCH_BOOKMARKS = 'FETCH_BOOKMARKS';
 export const FETCH_BOOKMARKS_START = 'FETCH_BOOKMARKS_START';
@@ -35,4 +35,3 @@ export function fetchBookmarks () {
       .then(bookmarks => dispatch(fetchBookmarksSuccess(bookmarks)));
   };
 };
-

@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as BookmarkActions from './BookmarkActions';
-import Bookmark from './Bookmark';
+import * as BookmarkActions from 'actions/BookmarkActions';
+import Bookmark from 'components/Bookmark';
 
 class BookmarkList extends React.Component {
 

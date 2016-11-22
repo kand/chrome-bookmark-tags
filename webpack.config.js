@@ -44,7 +44,9 @@ module.exports = [{
       '.js',
       '.jsx'
     ],
-    modulesDirectory: ['node_modules']
+    root: [
+      path.resolve('./src/app')
+    ]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),

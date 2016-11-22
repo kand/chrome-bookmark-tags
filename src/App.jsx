@@ -1,9 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import {
+  applyMiddleware,
+  createStore
+} from 'redux';
+import thunkMiddleware from 'redux-thunk';
 
-import AppRoot from './app/AppRoot';
-import store from './app/Store';
+import AppRoot from 'components/AppRoot';
+import RootReducer from 'reducers/RootReducer';
+
+let store = createStore(
+  RootReducer,
+  applyMiddleware(
+    thunkMiddleware
+  )
+);
 
 let root = document.createElement('div');
 root.id = 'root';

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BookmarkList from './BookmarkList';
+import BookmarkList from 'components/BookmarkList';
 
 export default class AppRoot extends React.Component {
 

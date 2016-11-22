@@ -1,16 +1,9 @@
-import {
-  applyMiddleware,
-  combineReducers,
-  createStore
-} from 'redux';
-import thunkMiddleware from 'redux-thunk';
-
+import { combineReducers } from 'redux';
 
 import {
   FETCH_BOOKMARKS_START,
   FETCH_BOOKMARKS_SUCCESS
-} from './BookmarkActions';
-
+} from 'actions/BookmarkActions';
 
 function bookmarks (state = {
   isFetching: false,
@@ -43,16 +36,7 @@ function bookmarks (state = {
   }
 }
 
-const rootReducer = combineReducers({
+export default combineReducers({
   bookmarks
 });
-
-let store = createStore(
-  rootReducer,
-  applyMiddleware(
-    thunkMiddleware
-  )
-);
-
-export default store;
 
