@@ -1,8 +1,0 @@
-{
-  "ext": "js,html",
-  "ignore": ["dist/**"],
-  "events": {
-    "exit": "node scripts/send-live-reload"
-  }
-}
-

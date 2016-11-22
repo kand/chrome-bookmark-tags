@@ -1,15 +1,14 @@
 {
   "name": "chrome-bookmark-tags",
   "version": "0.1.0",
-  "main": "src/chrome-bookmark-tags.js",
+  "main": "dist/index.html",
   "repository": {
     "type": "git",
     "url": "https://github.com/kand/chrome-bookmark-tags.git"
   },
   "scripts": {
-    "build": "babel src -s -d dist --copy-files",
-    "dev": "nodemon --exec npm run build",
-    "livereload": "node scripts/live-reload-server"
+    "build": "webpack",
+    "dev": "webpack --watch"
   },
   "keywords": [
     "chrome",
@@ -25,8 +24,26 @@
   "devDependencies": {
     "babel": "^5.1.11",
     "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-plugin-syntax-jsx": "^6.18.0",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
     "babel-preset-latest": "^6.16.0",
-    "nodemon": "^1.11.0",
-    "ws": "^1.1.1"
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "html-webpack-plugin": "^2.24.1",
+    "jsx": "^0.9.89",
+    "jsx-loader": "^0.13.2",
+    "react-jsx": "^1.0.0",
+    "redux": "^3.6.0",
+    "redux-devtools": "^3.3.1",
+    "webpack": "^1.13.3"
+  },
+  "dependencies": {
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0",
+    "react-redux": "^4.4.6",
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.1.0"
   }
 }
