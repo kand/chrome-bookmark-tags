@@ -8,6 +8,7 @@ export default class Bookmark extends React.Component {
           href={this.props.bookmark.url}
           target="_blank">
         ({this.props.bookmark.id})
+        ({this.props.bookmark.path})
         {this.props.bookmark.title}
       </a>
     );
