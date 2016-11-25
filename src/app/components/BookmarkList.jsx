@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as BookmarkActions from 'actions/BookmarkActions';
-import BookmarkTitleCell from 'components/BookmarkTitleCell';
+import BookmarkTitleDimension from 'components/BookmarkTitleDimension';
 import Table from 'components/table/Table';
-import TableDimension from 'components/table/TableDimension';
-import TableKeyCell from 'components/table/TableKeyCell';
+import TableKeyDimension from 'components/table/TableKeyDimension';
 
 class BookmarkList extends React.Component {
 
@@ -19,15 +18,15 @@ class BookmarkList extends React.Component {
 
     return (
       <Table rows={this.props.bookmarks}>
-        <TableDimension label="ID">
-          <TableKeyCell rowKey="id" />
-        </TableDimension>
-        <TableDimension label="Path">
-          <TableKeyCell rowKey="path" />
-        </TableDimension>
-        <TableDimension label="Title">
-          <BookmarkTitleCell />
-        </TableDimension>
+        <TableKeyDimension
+            label="ID"
+            rowKey="id"/>
+        <TableKeyDimension
+            label="Path"
+            rowKey="path"/>
+        <BookmarkTitleDimension
+            label="Title"
+            onSort={this.props.actions.sortBookmarks} />
       </Table>
     );
   }
