@@ -1,17 +1,17 @@
 import React from 'react';
 
-export default function BookmarkTitleCell (props) {
+import TableCell from 'components/table/TableCell';
 
-  return (
-    <a
-        href={props.row.url}
-        target="_blank">
-      {props.row.title}
-    </a>
-  );
-};
+export default class BookmarkTitleCell extends TableCell {
 
-BookmarkTitleCell.propTypes = {
-  row: React.PropTypes.object.isRequired
+  renderValue (row) {
+    return (
+      <a
+          href={row.url}
+          target="_blank">
+        {row.title}
+      </a>
+    );
+  }
 };
 

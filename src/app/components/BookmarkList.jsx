@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import * as BookmarkActions from 'actions/BookmarkActions';
 import BookmarkTitleCell from 'components/BookmarkTitleCell';
 import Table from 'components/table/Table';
+import TableDimension from 'components/table/TableDimension';
+import TableKeyCell from 'components/table/TableKeyCell';
 
 class BookmarkList extends React.Component {
 
@@ -16,21 +18,17 @@ class BookmarkList extends React.Component {
   render () {
 
     return (
-      <Table
-        dimensions={[
-          {
-            label: 'ID',
-            value: 'id'
-          }, {
-            label: 'Path',
-            value: 'path'
-          }, {
-            label: 'Title',
-            value: row => <BookmarkTitleCell row={row} />
-          }
-        ]}
-        rows={this.props.bookmarks}
-      />
+      <Table rows={this.props.bookmarks}>
+        <TableDimension label="ID">
+          <TableKeyCell rowKey="id" />
+        </TableDimension>
+        <TableDimension label="Path">
+          <TableKeyCell rowKey="path" />
+        </TableDimension>
+        <TableDimension label="Title">
+          <BookmarkTitleCell />
+        </TableDimension>
+      </Table>
     );
   }
 }
