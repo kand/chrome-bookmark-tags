@@ -1,13 +1,8 @@
 import React from 'react';
 
-import TableKeyDimension from 'components/table/TableKeyDimension';
-import { bookmarkDefaultComparator } from 'Utils';
+import BookmarkKeyDimension from 'components/BookmarkKeyDimension';
 
-export default class BookmarkTitleDimension extends TableKeyDimension {
-
-  getDefaultComparator () {
-    return bookmarkDefaultComparator;
-  }
+export default class BookmarkTitleDimension extends BookmarkKeyDimension {
 
   renderValue (row) {
     return (
