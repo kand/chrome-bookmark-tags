@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as BookmarkActions from 'actions/BookmarkActions';
-import Bookmark from 'components/Bookmark';
+import BookmarkTitleCell from 'components/BookmarkTitleCell';
+import Table from 'components/table/Table';
 
 class BookmarkList extends React.Component {
 
@@ -13,13 +14,24 @@ class BookmarkList extends React.Component {
   }
 
   render () {
-    let bookmarks = this.props.bookmarks.map((bookmark) => {
-      return <li key={bookmark.id}><Bookmark bookmark={bookmark} /></li>
-    });
 
-    return <ul>
-      {bookmarks}
-    </ul>;
+    return (
+      <Table
+        dimensions={[
+          {
+            label: 'ID',
+            value: 'id'
+          }, {
+            label: 'Path',
+            value: 'path'
+          }, {
+            label: 'Title',
+            value: row => <BookmarkTitleCell row={row} />
+          }
+        ]}
+        rows={this.props.bookmarks}
+      />
+    );
   }
 }
 
