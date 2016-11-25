@@ -2,8 +2,20 @@ import React from 'react';
 
 export default class TableDimension extends React.Component {
 
-  sorter (row1, row2) {
-    throw new Error('TableDimension sorter must be implemented before use!');
+  constructor (props) {
+    super(props);
+    this.state = {
+      currentSortMode: 0,
+      sorters: []
+    };
+  }
+
+  doSort () {
+    let incSortMode = this.state.currentSortMode + 1;
+    let nextSortMode = incSortMode < this.state.sorters.length ? incSortMode : 0;
+
+    this.setState({ currentSortMode: nextSortMode });
+    this.props.onSort(this.state.sorters[nextSortMode]);
   }
 
   renderValue (row) {
@@ -13,13 +25,13 @@ export default class TableDimension extends React.Component {
   renderAsHeader () {
     let sorting;
     if (this.props.onSort) {
-      sorting = <button onClick={this.props.onSort.bind(null, this.sorter)}>sort</button>;
+      sorting = <button onClick={this.doSort.bind(this)}>sort</button>;
     }
 
     return (
       <th>
         {this.props.label}
-        {sorting}
+        {sorting} {this.state.currentSortMode}
       </th>
     );
   }

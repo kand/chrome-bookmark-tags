@@ -1,19 +1,21 @@
 import React from 'react';
 
 import TableDimension from 'components/table/TableDimension';
+import {
+  bookmarkDefaultComparator,
+  bookmarkTitleComparatorAsc,
+  bookmarkTitleComparatorDsc
+} from 'Utils';
 
 export default class BookmarkTitleDimension extends TableDimension {
 
-  sorter (row1, row2) {
-    if (row1.title > row2.title) {
-      return 1;
-    }
-
-    if (row1.title < row2.title) {
-      return -1;
-    }
-
-    return 0;
+  constructor (props) {
+    super(props);
+    this.state.sorters = [
+      bookmarkDefaultComparator,
+      bookmarkTitleComparatorAsc,
+      bookmarkTitleComparatorDsc
+    ];
   }
 
   renderValue (row) {
