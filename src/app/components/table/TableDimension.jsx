@@ -14,8 +14,16 @@ export default class TableDimension extends React.Component {
     let incSortMode = this.state.currentSortMode + 1;
     let nextSortMode = incSortMode < this.state.sorters.length ? incSortMode : 0;
 
-    this.setState({ currentSortMode: nextSortMode });
     this.props.onSort(this.state.sorters[nextSortMode]);
+    this.setState({ currentSortMode: nextSortMode });
+  }
+
+  renderSortText () {
+    return [
+      'not sorted',
+      'sorted asc',
+      'sorted dsc'
+    ][this.state.currentSortMode];
   }
 
   renderValue (row) {
@@ -25,13 +33,13 @@ export default class TableDimension extends React.Component {
   renderAsHeader () {
     let sorting;
     if (this.props.onSort) {
-      sorting = <button onClick={this.doSort.bind(this)}>sort</button>;
+      sorting = <button onClick={this.doSort.bind(this)}>{this.renderSortText()}</button>;
     }
 
     return (
       <th>
         {this.props.label}
-        {sorting} {this.state.currentSortMode}
+        {sorting}
       </th>
     );
   }
