@@ -20,12 +20,13 @@ class BookmarkList extends React.Component {
       <Table rows={this.props.bookmarks}>
         <TableKeyDimension
             label="ID"
-            rowKey="id"/>
+            rowKey="id" />
         <TableKeyDimension
             label="Path"
-            rowKey="path"/>
+            rowKey="path" />
         <BookmarkTitleDimension
             label="Title"
+            rowKey="title"
             onSort={this.props.actions.sortBookmarks} />
       </Table>
     );

@@ -1,21 +1,12 @@
 import React from 'react';
 
-import TableDimension from 'components/table/TableDimension';
-import {
-  bookmarkDefaultComparator,
-  bookmarkTitleComparatorAsc,
-  bookmarkTitleComparatorDsc
-} from 'Utils';
+import TableKeyDimension from 'components/table/TableKeyDimension';
+import { bookmarkDefaultComparator } from 'Utils';
 
-export default class BookmarkTitleDimension extends TableDimension {
+export default class BookmarkTitleDimension extends TableKeyDimension {
 
-  constructor (props) {
-    super(props);
-    this.state.sorters = [
-      bookmarkDefaultComparator,
-      bookmarkTitleComparatorAsc,
-      bookmarkTitleComparatorDsc
-    ];
+  getDefaultComparator () {
+    return bookmarkDefaultComparator;
   }
 
   renderValue (row) {

@@ -1,5 +1,5 @@
 
-function keyComparator (item1, item2, key) {
+export function keyComparator (key, item1, item2) {
   let v1 = item1[key];
   let v2 = item2[key];
 
@@ -12,18 +12,18 @@ function keyComparator (item1, item2, key) {
   }
 
   return 0;
+};
+
+export function keyComparatorReverse (key, item1, item2) {
+  return keyComparator(key, item2, item1);
+};
+
+export function nullComparator () {
+  return 0;
 }
 
 export function bookmarkDefaultComparator (b1, b2) {
-  return keyComparator(b1, b2, 'id');
-};
-
-export function bookmarkTitleComparatorAsc (b1, b2) {
-  return keyComparator(b1, b2, 'title');
-};
-
-export function bookmarkTitleComparatorDsc (bookmark1, bookmark2) {
-  return bookmarkTitleComparatorAsc(bookmark2, bookmark1);
+  return keyComparator('id', b1, b2);
 };
 
 function getNodePathFromMapping (node, nodeMap) {
