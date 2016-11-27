@@ -3,7 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as BookmarkActions from 'actions/BookmarkActions';
-import Bookmark from 'components/Bookmark';
+import BookmarkTitleDimension from 'components/BookmarkTitleDimension';
+import Table from 'components/table/Table';
+import BookmarkKeyDimension from 'components/BookmarkKeyDimension';
 
 class BookmarkList extends React.Component {
 
@@ -13,18 +15,27 @@ class BookmarkList extends React.Component {
   }
 
   render () {
-    let bookmarks = this.props.bookmarks.map((bookmark) => {
-      return <li key={bookmark.id}><Bookmark bookmark={bookmark} /></li>
-    });
 
-    return <ul>
-      {bookmarks}
-    </ul>;
+    return (
+      <Table rows={this.props.bookmarks}>
+        <BookmarkKeyDimension
+            label="Path"
+            rowKey="path"
+            onSort={this.props.actions.sortBookmarks} />
+        <BookmarkTitleDimension
+            label="Title"
+            rowKey="title"
+            onSort={this.props.actions.sortBookmarks} />
+      </Table>
+    );
   }
 }
 
 export default connect(
-  state => ({ bookmarks: state.bookmarks.items }),
+  state => ({
+    bookmarks: state.bookmarks.items,
+    currentSortRowKey: state.bookmarks.uiCurrentSortRowKey
+  }),
   dispatch => ({ actions: bindActionCreators(BookmarkActions, dispatch) })
 )(BookmarkList);
 

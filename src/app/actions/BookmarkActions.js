@@ -2,9 +2,9 @@ import { bindActionCreators } from 'redux';
 
 import { flattenBookmarksTree } from 'Utils';
 
-export const FETCH_BOOKMARKS = 'FETCH_BOOKMARKS';
 export const FETCH_BOOKMARKS_START = 'FETCH_BOOKMARKS_START';
 export const FETCH_BOOKMARKS_SUCCESS = 'FETCH_BOOKMARKS_SUCCESS';
+export const SORT_BOOKMARKS = 'SORT_BOOKMARKS';
 
 export function fetchBookmarksStart () {
   return {
@@ -35,3 +35,11 @@ export function fetchBookmarks () {
       .then(bookmarks => dispatch(fetchBookmarksSuccess(bookmarks)));
   };
 };
+
+export function sortBookmarks (sorts) {
+  return {
+    sorts,
+    type: SORT_BOOKMARKS
+  };
+};
+

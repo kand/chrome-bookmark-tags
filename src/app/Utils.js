@@ -1,4 +1,31 @@
 
+export function keyComparator (key, item1, item2) {
+  let v1 = item1[key];
+  let v2 = item2[key];
+
+  if (v1 > v2) {
+    return 1;
+  }
+
+  if (v1 < v2) {
+    return -1;
+  }
+
+  return 0;
+};
+
+export function keyComparatorReverse (key, item1, item2) {
+  return keyComparator(key, item2, item1);
+};
+
+export function nullComparator () {
+  return 0;
+}
+
+export function bookmarkDefaultComparator (b1, b2) {
+  return keyComparator('id', b1, b2);
+};
+
 function getNodePathFromMapping (node, nodeMap) {
   let nodePathParts = [];
   let currentParent = nodeMap[node.parentId];
@@ -37,6 +64,6 @@ export function flattenBookmarksTree (tree) {
     }
   }
 
-  return bookmarks;
+  return bookmarks.sort(bookmarkDefaultComparator);
 };
 

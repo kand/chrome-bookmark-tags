@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 
 import {
   FETCH_BOOKMARKS_START,
-  FETCH_BOOKMARKS_SUCCESS
+  FETCH_BOOKMARKS_SUCCESS,
+  SORT_BOOKMARKS
 } from 'actions/BookmarkActions';
 
 function bookmarks (state = {
@@ -28,6 +29,15 @@ function bookmarks (state = {
         ...{
           isFetching: false,
           items: action.bookmarks
+        }
+      };
+
+    case SORT_BOOKMARKS:
+
+      return {
+        ...state,
+        ...{
+          items: state.items.concat().sort(action.sorts)
         }
       };
 
