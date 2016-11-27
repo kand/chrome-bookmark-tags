@@ -2,7 +2,7 @@ import {
   FETCH_BOOKMARKS_START,
   FETCH_BOOKMARKS_SUCCESS,
   SORT_BOOKMARKS
-} from 'actions/BookmarkActions';
+} from 'app/actions/BookmarkActions';
 
 export default function (state = {
   isFetching: false,

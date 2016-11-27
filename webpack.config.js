@@ -46,7 +46,7 @@ module.exports = [{
       '.jsx'
     ],
     root: [
-      path.resolve('./src/app')
+      path.resolve('./src')
     ]
   },
   plugins: [

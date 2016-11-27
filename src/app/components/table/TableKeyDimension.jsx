@@ -1,11 +1,11 @@
 import React from 'react';
 
-import TableDimension from 'components/table/TableDimension';
+import TableDimension from 'app/components/table/TableDimension';
 import {
   nullComparator,
   keyComparator,
   keyComparatorReverse
-} from 'Utils';
+} from 'app/Utils';
 
 export default class TableKeyDimension extends TableDimension {
 

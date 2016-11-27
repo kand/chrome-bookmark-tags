@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as BookmarkActions from 'actions/BookmarkActions';
-import BookmarkTitleDimension from 'components/bookmarks/BookmarkTitleDimension';
-import Table from 'components/table/Table';
-import BookmarkKeyDimension from 'components/bookmarks/BookmarkKeyDimension';
+import * as BookmarkActions from 'app/actions/BookmarkActions';
+import BookmarkTitleDimension from 'app/components/bookmarks/BookmarkTitleDimension';
+import Table from 'app/components/table/Table';
+import BookmarkKeyDimension from 'app/components/bookmarks/BookmarkKeyDimension';
 
 class BookmarkList extends React.Component {
 

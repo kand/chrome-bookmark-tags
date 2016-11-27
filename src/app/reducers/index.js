@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import bookmarks from 'reducers/BookmarksReducer';
+import bookmarks from 'app/reducers/BookmarksReducer';
 
 export default combineReducers({
   bookmarks
