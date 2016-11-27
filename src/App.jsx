@@ -8,7 +8,7 @@ import {
 import thunkMiddleware from 'redux-thunk';
 
 import AppRoot from 'components/AppRoot';
-import RootReducer from 'reducers/RootReducer';
+import RootReducer from 'reducers';
 
 let store = createStore(
   RootReducer,

@@ -1,12 +1,10 @@
-import { combineReducers } from 'redux';
-
 import {
   FETCH_BOOKMARKS_START,
   FETCH_BOOKMARKS_SUCCESS,
   SORT_BOOKMARKS
 } from 'actions/BookmarkActions';
 
-function bookmarks (state = {
+export default function (state = {
   isFetching: false,
   error: '',
   items: []
@@ -45,8 +43,4 @@ function bookmarks (state = {
       return state;
   }
 }
-
-export default combineReducers({
-  bookmarks
-});
 
