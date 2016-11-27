@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BookmarkKeyDimension from 'components/BookmarkKeyDimension';
+import BookmarkKeyDimension from 'components/bookmarks/BookmarkKeyDimension';
 
 export default class BookmarkTitleDimension extends BookmarkKeyDimension {
 
