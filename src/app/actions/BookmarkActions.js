@@ -38,8 +38,8 @@ export function fetchBookmarks () {
 
 export function sortBookmarks (sorts) {
   return {
-    type: SORT_BOOKMARKS,
-    sorts
+    sorts,
+    type: SORT_BOOKMARKS
   };
 };
 

@@ -16,14 +16,18 @@ export default class TableDimension extends React.Component {
 
     this.props.onSort(this.state.sorters[nextSortMode]);
     this.setState({ currentSortMode: nextSortMode });
+
+    this.props.onSortComplete(this.props.rowKey);
   }
 
   renderSortText () {
+    let sortMode = this.props.isCurrentlySortedBy ? this.state.currentSortMode : 0;
+
     return [
       'not sorted',
       'sorted asc',
       'sorted dsc'
-    ][this.state.currentSortMode];
+    ][sortMode];
   }
 
   renderValue (row) {
@@ -58,6 +62,7 @@ export default class TableDimension extends React.Component {
 TableDimension.propTypes = {
   label: React.PropTypes.string.isRequired,
   rowKey: React.PropTypes.string.isRequired,
-  onSort: React.propTypes.func
+  onSort: React.PropTypes.func,
+  isCurrentlySortedBy: React.PropTypes.bool
 };
 
