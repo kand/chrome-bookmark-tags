@@ -33,8 +33,7 @@ class BookmarkList extends React.Component {
 
 export default connect(
   state => ({
-    bookmarks: state.bookmarks.items,
-    currentSortRowKey: state.bookmarks.uiCurrentSortRowKey
+    bookmarks: state.bookmarks.ui.listedBookmarks.map(id => state.bookmarks.entities.byId[id])
   }),
   dispatch => ({ actions: bindActionCreators(BookmarkActions, dispatch) })
 )(BookmarkList);

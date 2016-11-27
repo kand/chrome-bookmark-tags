@@ -39,7 +39,7 @@ function getNodePathFromMapping (node, nodeMap) {
 }
 
 export function flattenBookmarksTree (tree) {
-  let bookmarks = [];
+  let bookmarks = {};
 
   if (tree.length > 0) {
     let nodeStack = tree;
@@ -54,7 +54,7 @@ export function flattenBookmarksTree (tree) {
       }
 
       currentNode.path = getNodePathFromMapping(currentNode, nodeMap);
-      bookmarks.push(currentNode);
+      bookmarks[currentNode.id] = currentNode;
 
       if (currentNode.children && currentNode.children.length > 0) {
         currentNode.children.forEach(childNode => {
@@ -64,6 +64,13 @@ export function flattenBookmarksTree (tree) {
     }
   }
 
-  return bookmarks.sort(bookmarkDefaultComparator);
+  return bookmarks;
 };
+
+export function getSortedBookmarkIds (bookmarksById, comparator = bookmarkDefaultComparator) {
+  return Object.keys(bookmarksById)
+    .map(key => bookmarksById[key])
+    .sort(comparator)
+    .map(bookmark => bookmark.id);
+}
 
