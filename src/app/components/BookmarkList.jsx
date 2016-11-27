@@ -19,10 +19,6 @@ class BookmarkList extends React.Component {
     return (
       <Table rows={this.props.bookmarks}>
         <BookmarkKeyDimension
-            label="ID"
-            rowKey="id"
-            onSort={this.props.actions.sortBookmarks} />
-        <BookmarkKeyDimension
             label="Path"
             rowKey="path"
             onSort={this.props.actions.sortBookmarks} />
