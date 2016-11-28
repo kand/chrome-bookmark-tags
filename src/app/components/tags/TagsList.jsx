@@ -22,13 +22,9 @@ class TagsList extends React.Component {
     this.props.actions.createTag({ title: event.target.value });
   }
 
-  render () {
-
+  renderTable () {
     return (
       <div>
-        <input
-          value={this.state.value}
-          onChange={this.addTag.bind(this)} />
         <Table rows={this.props.tags}>
           <TableKeyDimension
               label="ID"
@@ -39,6 +35,22 @@ class TagsList extends React.Component {
           <TagToolsDimension
               label="Tools" />
         </Table>
+      </div>
+    );
+  }
+
+  renderEmpty () {
+    return <div>There are currently no tags, add one!</div>;
+  }
+
+  render () {
+    return (
+      <div>
+        <h2>Tags</h2>
+        <input
+          value={this.state.value}
+          onChange={this.addTag.bind(this)} />
+        {this.props.tags.length > 0 ? this.renderTable() : this.renderEmpty()}
       </div>
     );
   }

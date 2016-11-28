@@ -17,16 +17,19 @@ class BookmarkList extends React.Component {
   render () {
 
     return (
-      <Table rows={this.props.bookmarks}>
-        <BookmarkKeyDimension
-            label="Path"
-            rowKey="path"
-            onSort={this.props.actions.sortBookmarks} />
-        <BookmarkTitleDimension
-            label="Title"
-            rowKey="title"
-            onSort={this.props.actions.sortBookmarks} />
-      </Table>
+      <div>
+        <h2>Bookmarks List</h2>
+        <Table rows={this.props.bookmarks}>
+          <BookmarkKeyDimension
+              label="Path"
+              rowKey="path"
+              onSort={this.props.actions.sortBookmarks} />
+          <BookmarkTitleDimension
+              label="Title"
+              rowKey="title"
+              onSort={this.props.actions.sortBookmarks} />
+        </Table>
+      </div>
     );
   }
 }
