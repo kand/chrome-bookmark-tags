@@ -54,6 +54,15 @@ export function createTag (tagData) {
   };
 };
 
+export function deleteTag (tagId) {
+  return {
+    type: DELETE_TAG,
+    payload: {
+      id: tagId
+    }
+  };
+}
+
 export function updateTagsList (listedTags) {
 
   return {
