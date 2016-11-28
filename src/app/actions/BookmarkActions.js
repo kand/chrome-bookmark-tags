@@ -31,7 +31,7 @@ export function fetchBookmarks () {
 
     dispatch(fetchBookmarksStart());
 
-    return (new Promise((resolve) => {
+    return (new Promise(resolve => {
 
       chrome.bookmarks.getTree(function (tree) {
         resolve(tree);

@@ -23,20 +23,11 @@ function ui (state = {
       };
 
     case FETCH_BOOKMARKS_SUCCESS:
-
+    case BOOKMARKS_LIST_UPDATED:
       return {
         ...state,
         ...{
           isFetching: false,
-          listedBookmarks: action.listedBookmarks
-        }
-      };
-
-    case BOOKMARKS_LIST_UPDATED:
-
-      return {
-        ...state,
-        ...{
           listedBookmarks: action.listedBookmarks
         }
       };
@@ -54,7 +45,6 @@ function entities (state = {
   switch (action.type) {
 
     case FETCH_BOOKMARKS_SUCCESS:
-
       return {
         ...state,
         ...{
