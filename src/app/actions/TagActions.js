@@ -1,16 +1,15 @@
 import { bindActionCreators } from 'redux';
+import { openDialog } from 'redux-dialog';
 import uuid from 'uuid';
 
-import {
-  getSortedTagIds
-} from 'app/Utils';
+import { getSortedTagIds } from 'app/Utils';
 
 export const CREATE_TAG = 'CREATE_TAG';
+export const UPDATE_TAG = 'UPDATE_TAG';
 export const DELETE_TAG = 'DELETE_TAG';
 export const FETCH_TAGS_START = 'FETCH_TAGS_START';
 export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
 export const TAGS_LIST_UPDATED = 'TAGS_LIST_UPDATED';
-export const UPDATE_TAG = 'UPDATE_TAG';
 
 export function fetchTagsStart () {
   return {
@@ -30,7 +29,7 @@ export function fetchTagsSuccess (tags) {
 
 export function fetchTags () {
 
-  return function (dispatch) {
+  return dispatch => {
 
     dispatch(fetchTagsStart());
 
@@ -54,7 +53,16 @@ export function createTag (tagData) {
   };
 };
 
+export function updateTag (tagData) {
+
+  return {
+    type: UPDATE_TAG,
+    payload: { ...tagData }
+  };
+};
+
 export function deleteTag (tagId) {
+
   return {
     type: DELETE_TAG,
     payload: {

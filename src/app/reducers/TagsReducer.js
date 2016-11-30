@@ -5,12 +5,14 @@ import {
   DELETE_TAG,
   FETCH_TAGS_START,
   FETCH_TAGS_SUCCESS,
-  TAGS_LIST_UPDATED
+  TAGS_LIST_UPDATED,
+  UPDATE_TAG
 } from 'app/actions/TagActions';
 
 function ui (state = {
-  isFetching: false,
+  editingTagId: null,
   error: '',
+  isFetching: false,
   listedTags: []
 }, action) {
 
@@ -80,6 +82,20 @@ function entities (state = {
             [action.payload.id]: action.payload
           },
           allIds: state.allIds.concat(action.payload.id)
+        }
+      };
+
+    case UPDATE_TAG:
+      return {
+        ...state,
+        ...{
+          byId: {
+            ...state.byId,
+            [action.payload.id]: {
+              ...state.byId[action.payload.id],
+              ...action.payload
+            }
+          }
         }
       };
 
