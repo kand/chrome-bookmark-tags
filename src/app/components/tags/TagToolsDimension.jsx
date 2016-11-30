@@ -17,23 +17,27 @@ class TagToolsDimension extends TableDimension {
     this.setState({ editModalOpen: true });
   }
 
-  renderEditModal () {
+  renderEditModal (tag) {
+
     if (this.state.editModalOpen) {
       return (
-        <Modal modalId="tagEdit">
-          This is the edit modal
+        <Modal
+            containerId="tagEdit"
+            title="Edit Tag">
+          {tag.id}
+          {tag.title}
         </Modal>
       );
     }
   }
 
-  renderValue (row) {
+  renderValue (tag) {
     return (
       <span>
-        <button onClick={this.props.actions.deleteTag.bind(null, row.id)}>delete</button>
+        <button onClick={this.props.actions.deleteTag.bind(null, tag.id)}>delete</button>
         <button onClick={this.openEditModal.bind(this)}>edit</button>
 
-        {this.renderEditModal()}
+        {this.renderEditModal(tag)}
       </span>
     );
   }
