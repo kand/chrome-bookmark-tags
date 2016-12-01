@@ -1,5 +1,4 @@
 import { bindActionCreators } from 'redux';
-import { openDialog } from 'redux-dialog';
 import uuid from 'uuid';
 
 import { getSortedTagIds } from 'app/Utils';

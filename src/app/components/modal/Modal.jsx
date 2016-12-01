@@ -25,6 +25,7 @@ export default class Modal extends React.Component {
   }
 
   componentDidUpdate() {
+
     ReactDOM.render(
       <div>
         <div id="modalHead">
@@ -45,7 +46,7 @@ export default class Modal extends React.Component {
 }
 
 Modal.propTypes = {
-  title: React.PropTypes.string,
-  containerId: React.PropTypes.string.isRequired
+  containerId: React.PropTypes.string.isRequired,
+  title: React.PropTypes.string
 };
 

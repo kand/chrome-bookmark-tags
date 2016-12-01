@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import * as TagActions from 'app/actions/TagActions';
 import TableDimension from 'app/components/table/TableDimension';
-import Modal from 'app/components/modal/Modal';
+import TagEditModal from 'app/components/tags/TagEditModal';
 
 class TagToolsDimension extends TableDimension {
 
@@ -17,16 +17,17 @@ class TagToolsDimension extends TableDimension {
     this.setState({ editModalOpen: true });
   }
 
-  renderEditModal (tag) {
+  saveEditModal (tag) {
+    this.props.actions.updateTag(tag);
+    this.setState({ editModalOpen: false });
+  }
 
+  renderEditModal (tag) {
     if (this.state.editModalOpen) {
       return (
-        <Modal
-            containerId="tagEdit"
-            title="Edit Tag">
-          {tag.id}
-          {tag.title}
-        </Modal>
+        <TagEditModal
+            onSave={this.saveEditModal.bind(this)}
+            tag={tag} />
       );
     }
   }
