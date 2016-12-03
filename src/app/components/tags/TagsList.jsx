@@ -12,14 +12,25 @@ class TagsList extends React.Component {
   constructor (props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      newTagTitle: ''
+    };
 
     this.props.actions.fetchTags();
   }
 
   addTag (event) {
+    if (this.state.newTagTitle) {
+      this.props.actions.createTag({ title: this.state.newTagTitle });
+    }
 
-    this.props.actions.createTag({ title: event.target.value });
+    this.setState({ newTagTitle: '' });
+
+    event.preventDefault();
+  }
+
+  updateTagValue (event) {
+    this.setState({ newTagTitle: event.target.value });
   }
 
   renderTable () {
@@ -47,9 +58,12 @@ class TagsList extends React.Component {
     return (
       <div>
         <h2>Tags</h2>
-        <input
-          value={this.state.value}
-          onChange={this.addTag.bind(this)} />
+        <form onSubmit={this.addTag.bind(this)}>
+          <input
+            value={this.state.newTagTitle}
+            onChange={this.updateTagValue.bind(this)} />
+          <button>create tag</button>
+        </form>
         {this.props.tags.length > 0 ? this.renderTable() : this.renderEmpty()}
       </div>
     );
