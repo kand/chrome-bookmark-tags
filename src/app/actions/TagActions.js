@@ -78,3 +78,13 @@ export function updateTagsList (listedTags) {
   };
 };
 
+export function sortTags (comparator) {
+
+  return function (dispatch, getState) {
+    let state = getState();
+    let listedTags = getSortedTagIds(state.tags.entities.byId, comparator);
+
+    dispatch(updateTagsList(listedTags));
+  };
+};
+

@@ -38,11 +38,9 @@ class TagsList extends React.Component {
       <div>
         <Table rows={this.props.tags}>
           <TableKeyDimension
-              label="ID"
-              rowKey="id" />
-          <TableKeyDimension
               label="Title"
-              rowKey="title" />
+              rowKey="title"
+              onSort={this.props.actions.sortTags} />
           <TagToolsDimension
               label="Tools" />
         </Table>
