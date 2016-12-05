@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
 import {
-  CREATE_TAG,
+  CREATE_TAG_SUCCESS,
   DELETE_TAG,
-  FETCH_TAGS_START,
+  TAG_STORAGE_OPERATION_START,
   FETCH_TAGS_SUCCESS,
   TAGS_LIST_UPDATED,
   UPDATE_TAG
@@ -18,7 +18,7 @@ function ui (state = {
 
   switch (action.type) {
 
-    case FETCH_TAGS_START:
+    case TAG_STORAGE_OPERATION_START:
       return {
         ...state,
         ...{
@@ -36,7 +36,7 @@ function ui (state = {
         }
       };
 
-    case CREATE_TAG:
+    case CREATE_TAG_SUCCESS:
       return {
         ...state,
         ...{
@@ -73,7 +73,7 @@ function entities (state = {
         }
       };
 
-    case CREATE_TAG:
+    case CREATE_TAG_SUCCESS:
       return {
         ...state,
         ...{

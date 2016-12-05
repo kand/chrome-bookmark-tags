@@ -3,16 +3,18 @@ import uuid from 'uuid';
 
 import { getSortedTagIds } from 'app/Utils';
 
-export const CREATE_TAG = 'CREATE_TAG';
+export const TAG_ENTITY_TYPE = 'TAG';
+
+export const CREATE_TAG_SUCCESS = 'CREATE_TAG_SUCCESS';
 export const UPDATE_TAG = 'UPDATE_TAG';
 export const DELETE_TAG = 'DELETE_TAG';
-export const FETCH_TAGS_START = 'FETCH_TAGS_START';
+export const TAG_STORAGE_OPERATION_START = 'TAG_STORAGE_OPERATION_START';
 export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
 export const TAGS_LIST_UPDATED = 'TAGS_LIST_UPDATED';
 
-export function fetchTagsStart () {
+export function tagStorageOperationStart () {
   return {
-    type: FETCH_TAGS_START
+    type: TAG_STORAGE_OPERATION_START
   };
 };
 
@@ -26,16 +28,28 @@ export function fetchTagsSuccess (tags) {
   };
 };
 
+export function createTagSuccess (newTag) {
+
+  return {
+    type: CREATE_TAG_SUCCESS,
+    payload: newTag
+  };
+};
+
 export function fetchTags () {
 
   return dispatch => {
 
-    dispatch(fetchTagsStart());
+    dispatch(tagStorageOperationStart());
 
     return (new Promise(resolve => {
 
-      // TODO : actually fetch from chrome
-      resolve({});
+      chrome.storage.local.get(null, entities => {
+        let tags = Object.keys(entities)
+          .filter(id => entities[id].entityType === TAG_ENTITY_TYPE)
+          .reduce((result, id) => ({ ...result, [id]: entities[id] }), {});
+        resolve(tags);
+      });
     }))
       .then(tags => dispatch(fetchTagsSuccess(tags)));
   };
@@ -43,12 +57,24 @@ export function fetchTags () {
 
 export function createTag (tagData) {
 
-  return {
-    type: CREATE_TAG,
-    payload: {
+  return dispatch => {
+
+    dispatch(tagStorageOperationStart());
+
+    let newTag = {
       ...tagData,
-      ...{ id: uuid.v4() }
-    }
+      ...{
+        id: uuid.v4(),
+        entityType: TAG_ENTITY_TYPE
+      }
+    };
+
+    return (new Promise(resolve => {
+      chrome.storage.local.set({ [newTag.id]: newTag }, () => {
+        resolve(newTag);
+      });
+    }))
+      .then(tag => dispatch(createTagSuccess(tag)));
   };
 };
 
