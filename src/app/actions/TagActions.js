@@ -6,7 +6,7 @@ import { getSortedTagIds } from 'app/Utils';
 export const TAG_ENTITY_TYPE = 'TAG';
 
 export const CREATE_TAG_SUCCESS = 'CREATE_TAG_SUCCESS';
-export const UPDATE_TAG = 'UPDATE_TAG';
+export const UPDATE_TAG_SUCCESS = 'UPDATE_TAG_SUCCESS';
 export const DELETE_TAG = 'DELETE_TAG';
 export const TAG_STORAGE_OPERATION_START = 'TAG_STORAGE_OPERATION_START';
 export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
@@ -33,6 +33,14 @@ export function createTagSuccess (newTag) {
   return {
     type: CREATE_TAG_SUCCESS,
     payload: newTag
+  };
+};
+
+export function updateTagSuccess (updatedTag) {
+
+  return {
+    type: UPDATE_TAG_SUCCESS,
+    payload: { ...updatedTag }
   };
 };
 
@@ -70,9 +78,7 @@ export function createTag (tagData) {
     };
 
     return (new Promise(resolve => {
-      chrome.storage.local.set({ [newTag.id]: newTag }, () => {
-        resolve(newTag);
-      });
+      chrome.storage.local.set({ [newTag.id]: newTag }, () => resolve(newTag));
     }))
       .then(tag => dispatch(createTagSuccess(tag)));
   };
@@ -80,9 +86,22 @@ export function createTag (tagData) {
 
 export function updateTag (tagData) {
 
-  return {
-    type: UPDATE_TAG,
-    payload: { ...tagData }
+  return dispatch => {
+
+    dispatch(tagStorageOperationStart());
+
+    return (new Promise(resolve => {
+      chrome.storage.local.get(tagData.id, existingTag => {
+
+        let updatedTag = {
+          ...existingTag,
+          ...tagData
+        };
+
+        chrome.storage.local.set({ [tagData.id]: updatedTag }, () => resolve(updatedTag));
+      });
+    }))
+      .then(tag => dispatch(updateTagSuccess(tag)));
   };
 };
 

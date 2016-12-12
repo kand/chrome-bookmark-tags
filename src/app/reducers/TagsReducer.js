@@ -6,7 +6,7 @@ import {
   TAG_STORAGE_OPERATION_START,
   FETCH_TAGS_SUCCESS,
   TAGS_LIST_UPDATED,
-  UPDATE_TAG
+  UPDATE_TAG_SUCCESS
 } from 'app/actions/TagActions';
 
 function ui (state = {
@@ -85,7 +85,7 @@ function entities (state = {
         }
       };
 
-    case UPDATE_TAG:
+    case UPDATE_TAG_SUCCESS:
       return {
         ...state,
         ...{
