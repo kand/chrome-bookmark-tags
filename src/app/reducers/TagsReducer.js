@@ -2,10 +2,10 @@ import { combineReducers } from 'redux';
 
 import {
   CREATE_TAG_SUCCESS,
-  DELETE_TAG,
-  TAG_STORAGE_OPERATION_START,
+  DELETE_TAG_SUCCESS,
   FETCH_TAGS_SUCCESS,
   TAGS_LIST_UPDATED,
+  TAG_STORAGE_OPERATION_START,
   UPDATE_TAG_SUCCESS
 } from 'app/actions/TagActions';
 
@@ -44,7 +44,7 @@ function ui (state = {
         }
       };
 
-   case DELETE_TAG:
+   case DELETE_TAG_SUCCESS:
       return {
         ...state,
         ...{
@@ -99,7 +99,7 @@ function entities (state = {
         }
       };
 
-    case DELETE_TAG:
+    case DELETE_TAG_SUCCESS:
       let byId = { ...state.byId };
       delete byId[action.payload.id];
 

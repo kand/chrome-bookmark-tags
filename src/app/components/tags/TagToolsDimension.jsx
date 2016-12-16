@@ -35,7 +35,7 @@ class TagToolsDimension extends TableDimension {
   renderValue (tag) {
     return (
       <span>
-        <button onClick={this.props.actions.deleteTag.bind(null, tag.id)}>delete</button>
+        <button onClick={this.props.actions.deleteTag.bind(null, tag)}>delete</button>
         <button onClick={this.openEditModal.bind(this)}>edit</button>
 
         {this.renderEditModal(tag)}

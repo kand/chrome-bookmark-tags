@@ -7,7 +7,7 @@ export const TAG_ENTITY_TYPE = 'TAG';
 
 export const CREATE_TAG_SUCCESS = 'CREATE_TAG_SUCCESS';
 export const UPDATE_TAG_SUCCESS = 'UPDATE_TAG_SUCCESS';
-export const DELETE_TAG = 'DELETE_TAG';
+export const DELETE_TAG_SUCCESS = 'DELETE_TAG_SUCCESS';
 export const TAG_STORAGE_OPERATION_START = 'TAG_STORAGE_OPERATION_START';
 export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
 export const TAGS_LIST_UPDATED = 'TAGS_LIST_UPDATED';
@@ -32,7 +32,7 @@ export function createTagSuccess (newTag) {
 
   return {
     type: CREATE_TAG_SUCCESS,
-    payload: newTag
+    payload: { ...newTag }
   };
 };
 
@@ -43,6 +43,14 @@ export function updateTagSuccess (updatedTag) {
     payload: { ...updatedTag }
   };
 };
+
+export function deleteTagSuccess (deletedTag) {
+
+  return {
+    type: DELETE_TAG_SUCCESS,
+    payload: { ...deletedTag }
+  };
+}
 
 export function fetchTags () {
 
@@ -105,13 +113,16 @@ export function updateTag (tagData) {
   };
 };
 
-export function deleteTag (tagId) {
+export function deleteTag (tagData) {
 
-  return {
-    type: DELETE_TAG,
-    payload: {
-      id: tagId
-    }
+  return dispatch => {
+
+    dispatch(tagStorageOperationStart());
+
+    return (new Promise(resolve => {
+      chrome.storage.local.remove(tagData.id, () => resolve());
+    }))
+      .then(() => dispatch(deleteTagSuccess(tagData)));
   };
 }
 
