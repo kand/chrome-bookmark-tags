@@ -11,6 +11,7 @@ export const DELETE_TAG_SUCCESS = 'DELETE_TAG_SUCCESS';
 export const TAG_STORAGE_OPERATION_START = 'TAG_STORAGE_OPERATION_START';
 export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
 export const TAGS_LIST_UPDATED = 'TAGS_LIST_UPDATED';
+export const TAG_ACTION_FAIL = 'TAG_ACTION_FAIL';
 
 export function tagStorageOperationStart () {
   return {
@@ -44,6 +45,14 @@ export function updateTagSuccess (updatedTag) {
   };
 };
 
+export function tagActionFail (msg) {
+
+  return {
+    type: TAG_ACTION_FAIL,
+    error: msg
+  };
+}
+
 export function deleteTagSuccess (deletedTag) {
 
   return {
@@ -73,9 +82,22 @@ export function fetchTags () {
 
 export function createTag (tagData) {
 
-  return dispatch => {
+  return (dispatch, getState) => {
 
     dispatch(tagStorageOperationStart());
+
+    let tags = getState().tags.entities;
+    let tagIsUnique = tags.allIds.reduce((tagIsUnique, currTagId) => {
+      if (currTagId === tagData.id) {
+        return tagIsUnique && true;
+      }
+
+      return tagIsUnique && tags.byId[currTagId].title !== tagData.title;
+    });
+
+    if (!tagIsUnique) {
+      return dispatch(tagActionFail('tag title is not unique!'));
+    }
 
     let newTag = {
       ...tagData,
@@ -97,6 +119,19 @@ export function updateTag (tagData) {
   return dispatch => {
 
     dispatch(tagStorageOperationStart());
+
+    let tags = getState().tags.entities;
+    let tagIsUnique = tags.allIds.reduce((tagIsUnique, currTagId) => {
+      if (currTagId === tagData.id) {
+        return tagIsUnique && true;
+      }
+
+      return tagIsUnique && tags.byId[currTagId].title !== tagData.title;
+    });
+
+    if (!tagIsUnique) {
+      return dispatch(tagActionFail('tag title is not unique!'));
+    }
 
     return (new Promise(resolve => {
       chrome.storage.local.get(tagData.id, existingTag => {
