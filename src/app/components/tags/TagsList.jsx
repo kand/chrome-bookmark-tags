@@ -33,9 +33,16 @@ class TagsList extends React.Component {
     this.setState({ newTagTitle: event.target.value });
   }
 
+  renderErrorMessage () {
+    if (this.props.errorMessage) {
+      return <div>{this.props.errorMessage}</div>;
+    }
+  }
+
   renderTable () {
     return (
       <div>
+        <div></div>
         <Table rows={this.props.tags}>
           <TableKeyDimension
               label="Title"
@@ -62,6 +69,7 @@ class TagsList extends React.Component {
             onChange={this.updateTagValue.bind(this)} />
           <button>create tag</button>
         </form>
+        {this.renderErrorMessage()}
         {this.props.tags.length > 0 ? this.renderTable() : this.renderEmpty()}
       </div>
     );
@@ -70,7 +78,8 @@ class TagsList extends React.Component {
 
 export default connect(
   state => ({
-    tags: state.tags.ui.listedTags.map(id => state.tags.entities.byId[id]),
+    errorMessage: state.tags.ui.error,
+    tags: state.tags.ui.listedTags.map(id => state.tags.entities.byId[id])
   }),
   dispatch => ({ actions: bindActionCreators(TagActions, dispatch) })
 )(TagsList);

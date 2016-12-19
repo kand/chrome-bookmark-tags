@@ -5,6 +5,7 @@ import {
   DELETE_TAG_SUCCESS,
   FETCH_TAGS_SUCCESS,
   TAGS_LIST_UPDATED,
+  TAG_ACTION_FAIL,
   TAG_STORAGE_OPERATION_START,
   UPDATE_TAG_SUCCESS
 } from 'app/actions/TagActions';
@@ -22,7 +23,8 @@ function ui (state = {
       return {
         ...state,
         ...{
-          isFetching: true
+          isFetching: true,
+          error: ''
         }
       };
 
@@ -49,6 +51,14 @@ function ui (state = {
         ...state,
         ...{
           listedTags: state.listedTags.filter(tagId => tagId !== action.payload.id)
+        }
+      };
+
+    case TAG_ACTION_FAIL:
+      return {
+        ...state,
+        ...{
+          error: action.error
         }
       };
 

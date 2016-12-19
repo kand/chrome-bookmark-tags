@@ -45,11 +45,11 @@ export function updateTagSuccess (updatedTag) {
   };
 };
 
-export function tagActionFail (msg) {
+export function tagActionFail (err) {
 
   return {
     type: TAG_ACTION_FAIL,
-    error: msg
+    error: err
   };
 }
 
