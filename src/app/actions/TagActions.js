@@ -1,4 +1,3 @@
-import { bindActionCreators } from 'redux';
 import uuid from 'uuid';
 
 import { getSortedTagIds } from 'app/Utils';
