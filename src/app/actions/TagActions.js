@@ -92,7 +92,7 @@ export function createTag (tagData) {
       }
 
       return tagIsUnique && tags.byId[currTagId].title !== tagData.title;
-    });
+    }, true);
 
     if (!tagIsUnique) {
       return dispatch(tagActionFail('tag title is not unique!'));
@@ -126,7 +126,7 @@ export function updateTag (tagData) {
       }
 
       return tagIsUnique && tags.byId[currTagId].title !== tagData.title;
-    });
+    }, true);
 
     if (!tagIsUnique) {
       return dispatch(tagActionFail('tag title is not unique!'));
