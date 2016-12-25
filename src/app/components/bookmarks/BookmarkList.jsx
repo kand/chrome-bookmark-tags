@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import * as BookmarkActions from 'app/actions/BookmarkActions';
 import BookmarkKeyDimension from 'app/components/bookmarks/BookmarkKeyDimension';
 import BookmarkTitleDimension from 'app/components/bookmarks/BookmarkTitleDimension';
+import BookmarkTagsDimension from 'app/components/bookmarks/BookmarkTagsDimension';
 import Table from 'app/components/table/Table';
 
 class BookmarkList extends React.Component {
@@ -27,6 +28,10 @@ class BookmarkList extends React.Component {
           <BookmarkTitleDimension
               label="Title"
               rowKey="title"
+              onSort={this.props.actions.sortBookmarks} />
+          <BookmarkTagsDimension
+              label="Tags"
+              rowKey="tags"
               onSort={this.props.actions.sortBookmarks} />
         </Table>
       </div>

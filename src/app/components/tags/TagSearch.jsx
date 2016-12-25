@@ -35,21 +35,32 @@ export default class TagSearch extends React.Component {
   }
 
   renderResults () {
-    return this.state.searchResults.map(result => {
-      return <li key={result.id}>{result.title}</li>;
-    });
+    return (
+      <ul>
+        {
+          this.state.searchResults.map(tag => {
+            return (
+              <li key={tag.id}>
+                <button onClick={this.props.onSelect.bind(null, tag)}>{tag.title}</button>
+              </li>
+            );
+          })
+        }
+      </ul>
+    );
   }
 
   render () {
     return (
       <div>
-        <input
-            onChange={this.searchTags.bind(this)} />
-        <ul>
-          {this.renderResults()}
-        </ul>
+        <input onChange={this.searchTags.bind(this)} />
+        {this.renderResults()}
       </div>
     );
   }
 }
+
+TagSearch.propTypes = {
+  onSelect: React.PropTypes.func
+};
 
