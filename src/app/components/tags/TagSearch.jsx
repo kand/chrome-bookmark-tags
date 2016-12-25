@@ -18,15 +18,26 @@ export default class TagSearch extends React.Component {
   searchTags (event) {
     event.preventDefault();
 
+    let term = event.target.value;
     let tagsEntities = store.getState().tags.entities;
-    let results = tagsEntities.allIds
-      .map(id => tagsEntities.byId[id])
-      .filter(tag => {
-        return tag.title.includes(event.target.value);
-      })
-      .slice(0, 5);
+
+    let results = [];
+    if (term) {
+      results = tagsEntities.allIds
+        .map(id => tagsEntities.byId[id])
+        .filter(tag => {
+          return tag.title.includes(term);
+        })
+        .slice(0, 5);
+    }
 
     this.setState({ searchResults: results });
+  }
+
+  renderResults () {
+    return this.state.searchResults.map(result => {
+      return <li key={result.id}>{result.title}</li>;
+    });
   }
 
   render () {
@@ -35,7 +46,7 @@ export default class TagSearch extends React.Component {
         <input
             onChange={this.searchTags.bind(this)} />
         <ul>
-          {this.state.searchResults}
+          {this.renderResults()}
         </ul>
       </div>
     );
