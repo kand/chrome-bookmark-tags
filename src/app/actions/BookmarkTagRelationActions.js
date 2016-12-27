@@ -10,7 +10,7 @@ export const BOOKMARK_TAG_RELATION_ACTION_FAIL = 'BOOKMARK_TAG_RELATION_ACTION_F
 
 export function bookmarkTagRelationOperationStart () {
   return {
-    type BOOKMARK_TAG_RELATION_ENTITY_TYPE
+    type: BOOKMARK_TAG_RELATION_ENTITY_TYPE
   };
 };
 
@@ -48,7 +48,7 @@ export function bookmarkTagRelationActionFail (err) {
 
 export function fetchBookmarkTagRelations () {
 
-  return dispatch -> {
+  return dispatch => {
 
     dispatch(bookmarkTagRelationOperationStart());
 
@@ -57,7 +57,8 @@ export function fetchBookmarkTagRelations () {
       chrome.storage.local.get(null, entities => {
         let bookmarkTagRelations = Object.keys(entities)
           .filter(id => entities[id].entityType === BOOKMARK_TAG_RELATION_ENTITY_TYPE)
-          .reduce((result, id_ => ({ ...result, [id]: entities[id] }), {});
+          .reduce((result, id) => ({ ...result, [id]: entities[id] }), {});
+
         resolve(bookmarkTagRelations);
       });
     }))
@@ -79,8 +80,10 @@ export function createBookmarkTagRelation (relationData) {
       }
     };
 
-    return (new Promsie(resolve => {
-      chrome.storage.local.set({ [newBookmarkTagRelation.id]: newBookmarkTagRelation }, () => resolve(newBookmarkTagRelation);
+    return (new Promise(resolve => {
+      chrome.storage.local.set({
+        [newBookmarkTagRelation.id]: newBookmarkTagRelation
+      }, () => resolve(newBookmarkTagRelation));
     }))
       .then(bookmarkTagRelation => dispatch(createBookmarkTagRelationSuccess(bookmarkTagRelation)));
   };
@@ -96,5 +99,6 @@ export function deletedBookmarkTagRelation (relationData) {
       chrome.storage.local.remove(relationData.id, () => resolve());
     }))
       .then(bookmarkTagRelation => dispatch(deleteBookmarkTagRelationSuccess(bookmarkTagRelation)));
+  };
 };
 

@@ -7,7 +7,7 @@ import {
   BOOKMARK_TAG_RELATION_STORAGE_OPERATION_START,
   FETCH_BOOKMARK_TAG_RELATION_SUCCESS,
   BOOKMARK_TAG_RELATION_ACTION_FAIL
-} form 'app/actions/BookmarkTagActions';
+} from 'app/actions/BookmarkTagRelationActions';
 
 function ui (state = {
   error: '',
