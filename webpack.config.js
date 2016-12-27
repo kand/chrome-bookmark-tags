@@ -4,6 +4,7 @@ let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = [{
+  devtool: 'source-map',
   entry: {
     app: './' + path.join('src', 'app'),
     vendor: [
