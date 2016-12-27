@@ -19,8 +19,10 @@ class BookmarkTagsDimension extends BookmarkKeyDimension {
     let _self = this;
     return this.props.bookmarkTagRelations
       .filter(relation => relation.bookmarkId === _self.props.row.id)
-      .map(relation => _self.props.tagsState.byId[relation.tagId])
-      .map(tag => <div>{tag.title}</div>);
+      .map(relation => {
+        let tag = _self.props.tagsState.entities.byId[relation.tagId];
+        return <div key={relation.id}>{tag.title}</div>;
+      });
   }
 
   renderValue (bookmark) {
