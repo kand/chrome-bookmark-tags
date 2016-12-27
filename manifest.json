@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Bookmark Tags",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Andrew Kos <akos123@gmail.com>",
   "chrome_url_overrides": {
     "bookmarks": "dist/index.html"
