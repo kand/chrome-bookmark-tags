@@ -15,9 +15,18 @@ class BookmarkTagsDimension extends BookmarkKeyDimension {
     });
   }
 
+  deleteRelation (relation) {
+    this.props.actions.deleteBookmarkTagRelation(relation);
+  }
+
   renderBookmarkTagRelations () {
-    let tagElements = this.props.tags
-      .map((tag, i) => <li key={i}>{tag.title}</li>);
+    let tagElements = this.props.relations
+      .map(relation => (
+        <li key={relation.id}>
+          <span>{this.props.tagsById[relation.tagId].title}</span>
+          <button onClick={this.deleteRelation.bind(this, relation)}>delete</button>
+        </li>
+      ));
 
     return <ul>{tagElements}</ul>
   }
@@ -36,17 +45,17 @@ export default connect(
   (state, ownProps) => {
     let bookmarkTagRelations = state.bookmarkTagRelations;
 
-    let tags = [];
+    let relations = [];
     if (ownProps.row) {
-      tags = bookmarkTagRelations.entities.allIds
+      relations = bookmarkTagRelations.entities.allIds
         .map(id => bookmarkTagRelations.entities.byId[id])
-        .filter(relation => relation.bookmarkId === ownProps.row.id)
-        .map(relation => state.tags.entities.byId[relation.tagId])
+        .filter(relation => relation.bookmarkId === ownProps.row.id);
     }
 
     return {
       errorMessage: bookmarkTagRelations.ui.error,
-      tags
+      tagsById: state.tags.entities.byId,
+      relations
     };
   },
   dispatch => ({ actions: bindActionCreators(BookmarkTagRelationActions, dispatch) })

@@ -89,14 +89,14 @@ export function createBookmarkTagRelation (relationData) {
   };
 };
 
-export function deletedBookmarkTagRelation (relationData) {
+export function deleteBookmarkTagRelation (relationData) {
 
   return dispatch => {
 
     dispatch(bookmarkTagRelationOperationStart());
 
     return (new Promise(resolve => {
-      chrome.storage.local.remove(relationData.id, () => resolve());
+      chrome.storage.local.remove(relationData.id, () => resolve(relationData));
     }))
       .then(bookmarkTagRelation => dispatch(deleteBookmarkTagRelationSuccess(bookmarkTagRelation)));
   };
