@@ -61,7 +61,6 @@ export default class TableDimension extends React.Component {
 
 TableDimension.propTypes = {
   label: React.PropTypes.string.isRequired,
-  rowKey: React.PropTypes.string.isRequired,
   onSort: React.PropTypes.func,
   isCurrentlySortedBy: React.PropTypes.bool
 };

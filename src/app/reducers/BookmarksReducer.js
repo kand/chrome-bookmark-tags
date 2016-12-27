@@ -3,13 +3,13 @@ import { combineReducers } from 'redux';
 import {
   FETCH_BOOKMARKS_START,
   FETCH_BOOKMARKS_SUCCESS,
-  SORT_BOOKMARKS
-} from 'actions/BookmarkActions';
+  BOOKMARKS_LIST_UPDATED,
+} from 'app/actions/BookmarkActions';
 
-function bookmarks (state = {
+function ui (state = {
   isFetching: false,
   error: '',
-  items: []
+  listedBookmarks: []
 }, action) {
 
   switch (action.type) {
@@ -23,21 +23,33 @@ function bookmarks (state = {
       };
 
     case FETCH_BOOKMARKS_SUCCESS:
-
+    case BOOKMARKS_LIST_UPDATED:
       return {
         ...state,
         ...{
           isFetching: false,
-          items: action.bookmarks
+          listedBookmarks: action.listedBookmarks
         }
       };
 
-    case SORT_BOOKMARKS:
+    default:
+      return state;
+  }
+};
 
+function entities (state = {
+  byId: {},
+  allIds: []
+}, action) {
+
+  switch (action.type) {
+
+    case FETCH_BOOKMARKS_SUCCESS:
       return {
         ...state,
         ...{
-          items: state.items.concat().sort(action.sorts)
+          byId: action.bookmarks,
+          allIds: Object.keys(action.bookmarks)
         }
       };
 
@@ -47,6 +59,7 @@ function bookmarks (state = {
 }
 
 export default combineReducers({
-  bookmarks
+  ui,
+  entities
 });
 

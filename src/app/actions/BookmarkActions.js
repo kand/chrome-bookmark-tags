@@ -1,10 +1,11 @@
-import { bindActionCreators } from 'redux';
-
-import { flattenBookmarksTree } from 'Utils';
+import {
+  flattenBookmarksTree,
+  getSortedBookmarkIds
+} from 'app/Utils';
 
 export const FETCH_BOOKMARKS_START = 'FETCH_BOOKMARKS_START';
 export const FETCH_BOOKMARKS_SUCCESS = 'FETCH_BOOKMARKS_SUCCESS';
-export const SORT_BOOKMARKS = 'SORT_BOOKMARKS';
+export const BOOKMARKS_LIST_UPDATED = 'BOOKMARKS_LIST_UPDATED';
 
 export function fetchBookmarksStart () {
   return {
@@ -13,9 +14,12 @@ export function fetchBookmarksStart () {
 };
 
 export function fetchBookmarksSuccess (bookmarks) {
+  let listedBookmarks = getSortedBookmarkIds(bookmarks);
+
   return {
     type: FETCH_BOOKMARKS_SUCCESS,
-    bookmarks
+    bookmarks,
+    listedBookmarks
   }
 };
 
@@ -25,7 +29,7 @@ export function fetchBookmarks () {
 
     dispatch(fetchBookmarksStart());
 
-    return (new Promise((resolve) => {
+    return (new Promise(resolve => {
 
       chrome.bookmarks.getTree(function (tree) {
         resolve(tree);
@@ -36,10 +40,21 @@ export function fetchBookmarks () {
   };
 };
 
-export function sortBookmarks (sorts) {
+export function sortBookmarks (comparator) {
+
+  return function (dispatch, getState) {
+    let state = getState();
+    let listedBookmarks = getSortedBookmarkIds(state.bookmarks.entities.byId, comparator)
+
+    dispatch(updateBookmarksList(listedBookmarks));
+  };
+};
+
+export function updateBookmarksList (listedBookmarks) {
+
   return {
-    sorts,
-    type: SORT_BOOKMARKS
+    listedBookmarks,
+    type: BOOKMARKS_LIST_UPDATED
   };
 };
 
