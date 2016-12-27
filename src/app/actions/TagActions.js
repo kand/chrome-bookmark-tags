@@ -12,6 +12,17 @@ export const FETCH_TAGS_SUCCESS = 'FETCH_TAGS_SUCCESS';
 export const TAGS_LIST_UPDATED = 'TAGS_LIST_UPDATED';
 export const TAG_ACTION_FAIL = 'TAG_ACTION_FAIL';
 
+function tagIsUnique (tagData, tagsState) {
+  let tags = tagsState.entities;
+  return tags.allIds.reduce((tagIsUnique, currTagId) => {
+    if (currTagId === tagData.id) {
+      return tagIsUnique && true;
+    }
+
+    return tagIsUnique && tags.byId[currTagId].title !== tagData.title;
+  }, true);
+};
+
 export function tagStorageOperationStart () {
   return {
     type: TAG_STORAGE_OPERATION_START
@@ -85,16 +96,7 @@ export function createTag (tagData) {
 
     dispatch(tagStorageOperationStart());
 
-    let tags = getState().tags.entities;
-    let tagIsUnique = tags.allIds.reduce((tagIsUnique, currTagId) => {
-      if (currTagId === tagData.id) {
-        return tagIsUnique && true;
-      }
-
-      return tagIsUnique && tags.byId[currTagId].title !== tagData.title;
-    }, true);
-
-    if (!tagIsUnique) {
+    if (!tagIsUnique(tagData, getState().tags)) {
       return dispatch(tagActionFail('tag title is not unique!'));
     }
 
@@ -119,16 +121,7 @@ export function updateTag (tagData) {
 
     dispatch(tagStorageOperationStart());
 
-    let tags = getState().tags.entities;
-    let tagIsUnique = tags.allIds.reduce((tagIsUnique, currTagId) => {
-      if (currTagId === tagData.id) {
-        return tagIsUnique && true;
-      }
-
-      return tagIsUnique && tags.byId[currTagId].title !== tagData.title;
-    }, true);
-
-    if (!tagIsUnique) {
+    if (!tagIsUnique(tagData, getState().tags)) {
       return dispatch(tagActionFail('tag title is not unique!'));
     }
 

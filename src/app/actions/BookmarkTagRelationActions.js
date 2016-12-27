@@ -8,6 +8,17 @@ export const BOOKMARK_TAG_RELATION_STORAGE_OPERATION_START = 'BOOKMARK_TAG_RELAT
 export const FETCH_BOOKMARK_TAG_RELATION_SUCCESS = 'FETCH_BOOKMARK_TAG_RELATION_SUCCESS';
 export const BOOKMARK_TAG_RELATION_ACTION_FAIL = 'BOOKMARK_TAG_RELATION_ACTION_FAIL';
 
+function relationIsUnique (relationData, relationsState) {
+  let relations = relationsState.entities;
+  return relations.allIds.reduce((relationIsUnique, currRelationId) => {
+    let currRelation = relations.byId[currRelationId];
+
+    return relationIsUnique &&
+      !(relationData.tagId === currRelation.tagId &&
+          relationData.bookmarkId === currRelation.bookmarkId);
+  }, true);
+};
+
 export function bookmarkTagRelationOperationStart () {
   return {
     type: BOOKMARK_TAG_RELATION_ENTITY_TYPE
@@ -68,9 +79,13 @@ export function fetchBookmarkTagRelations () {
 
 export function createBookmarkTagRelation (relationData) {
 
-  return dispatch => {
+  return (dispatch, getState) => {
 
     dispatch(bookmarkTagRelationOperationStart());
+
+    if (!relationIsUnique(relationData, getState().bookmarkTagRelations)) {
+      return dispatch(bookmarkTagRelationActionFail('tag already assigned to bookmark!'));
+    }
 
     let newBookmarkTagRelation = {
       ...relationData,
