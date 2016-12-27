@@ -16,34 +16,37 @@ class BookmarkTagsDimension extends BookmarkKeyDimension {
   }
 
   renderBookmarkTagRelations () {
-    let _self = this;
-    return this.props.bookmarkTagRelations
-      .filter(relation => relation.bookmarkId === _self.props.row.id)
-      .map(relation => {
-        let tag = _self.props.tagsState.entities.byId[relation.tagId];
-        return <div key={relation.id}>{tag.title}</div>;
-      });
+    let tagElements = this.props.tags
+      .map((tag, i) => <li key={i}>{tag.title}</li>);
+
+    return <ul>{tagElements}</ul>
   }
 
   renderValue (bookmark) {
     return (
       <div>
         <TagSearch onSelect={this.selectTag.bind(this)} />
-        <div>{this.renderBookmarkTagRelations()}</div>
+        {this.renderBookmarkTagRelations()}
       </div>
     );
   }
 };
 
 export default connect(
-  state => {
+  (state, ownProps) => {
     let bookmarkTagRelations = state.bookmarkTagRelations;
+
+    let tags = [];
+    if (ownProps.row) {
+      tags = bookmarkTagRelations.entities.allIds
+        .map(id => bookmarkTagRelations.entities.byId[id])
+        .filter(relation => relation.bookmarkId === ownProps.row.id)
+        .map(relation => state.tags.entities.byId[relation.tagId])
+    }
 
     return {
       errorMessage: bookmarkTagRelations.ui.error,
-      bookmarkTagRelations: bookmarkTagRelations.entities.allIds
-        .map(id => bookmarkTagRelations.entities.byId[id]),
-      tagsState: state.tags
+      tags
     };
   },
   dispatch => ({ actions: bindActionCreators(BookmarkTagRelationActions, dispatch) })
