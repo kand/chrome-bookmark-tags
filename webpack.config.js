@@ -4,6 +4,7 @@ let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = [{
+  devtool: 'inline-source-map',
   entry: {
     app: './' + path.join('src', 'app'),
     vendor: [
@@ -19,7 +20,7 @@ module.exports = [{
     filename: 'client.js'
   },
   module: {
-    preLoaders: [{
+    loaders: [{
       test: /\.jsx?$/,
       loader: 'babel',
       query: {
@@ -33,10 +34,6 @@ module.exports = [{
           'stage-3'
         ]
       }
-    }],
-    loaders: [{
-      test: /\.jsx$/,
-      loader: 'jsx'
     }]
   },
   resolve: {
