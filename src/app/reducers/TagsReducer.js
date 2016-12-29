@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux';
-
 import { getEntitiesOfType } from 'app/Utils';
 import {
   TAG_ENTITY_TYPE,

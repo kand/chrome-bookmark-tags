@@ -16,7 +16,6 @@ document.body.appendChild(root);
 store.dispatch(fetchEntities());
 
 store.dispatch(fetchBookmarks());
-store.dispatch(fetchBookmarkTagRelations());
 
 ReactDOM.render(
   <Provider store={store}>
