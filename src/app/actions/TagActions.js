@@ -1,6 +1,7 @@
 import uuid from 'uuid';
 
 import { getEntitiesOfType } from 'app/Utils';
+import { BOOKMARK_TAG_RELATION_ENTITY_TYPE } from 'app/actions/BookmarkTagRelationActions';
 import {
   createEntity,
   updateEntity,
@@ -41,7 +42,18 @@ export function updateTag (tagData) {
 
 export function deleteTag (tagData) {
 
-  return deleteEntity(tagData);
+  return (dispatch, getState) => {
+
+    dispatch(deleteEntity(tagData))
+      .then(() => {
+        let entities = getState().entities;
+        let relations = getEntitiesOfType(entities.allIds, entities.byId, BOOKMARK_TAG_RELATION_ENTITY_TYPE);
+
+        relations
+          .filter(relation => relation.tagId === tagData.id)
+          .forEach(relation => dispatch(deleteEntity(relation)));
+      });
+  };
 }
 
 export function updateTagsList (listedTags) {
