@@ -45,7 +45,22 @@ export default function tags (state = {
         }
       };
 
-   case ENTITY_DELETE_SUCCESS:
+    case ENTITY_UPDATE_SUCCESS:
+      if (action.payload.entityType !== TAG_ENTITY_TYPE) {
+        return state;
+      }
+
+      let listedTags = state.listedTags
+        .map(tag => tag.id === action.payload.id ? action.payload : tag);
+
+      return {
+        ...state,
+        ...{
+          listedTags
+        }
+      };
+
+    case ENTITY_DELETE_SUCCESS:
       if (action.payload.entityType !== TAG_ENTITY_TYPE) {
         return state;
       }

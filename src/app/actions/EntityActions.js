@@ -5,7 +5,7 @@ export const ENTITY_DELETE_SUCCESS = 'ENTITY_DELETE_SUCCESS';
 export const ENTITY_LIST_HYDRATE_SUCCESS = 'ENTITY_LIST_FETCH_SUCCESS';
 export const ENTITY_OPERATION_FAIL = 'ENTITY_OPERATION_FAIL';
 export const ENTITY_OPERATION_START = 'ENTITY_OPERATION_START';
-export const ENTITY_UPDATE_SUCCESS = 'ENTITY_CREATE_SUCCESS';
+export const ENTITY_UPDATE_SUCCESS = 'ENTITY_UPDATE_SUCCESS';
 
 function entityOperationFail (error) {
 
@@ -49,7 +49,7 @@ function entityListHydrateSuccess (entities) {
 function entityUpdateSuccess (entityData) {
 
   return {
-    type: UPDATE_TAG_SUCCESS,
+    type: ENTITY_UPDATE_SUCCESS,
     payload: { ...entityData }
   };
 }
