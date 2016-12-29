@@ -15,8 +15,6 @@ class TagsList extends React.Component {
     this.state = {
       newTagTitle: ''
     };
-
-    this.props.actions.fetchTags();
   }
 
   addTag (event) {
@@ -78,8 +76,8 @@ class TagsList extends React.Component {
 
 export default connect(
   state => ({
-    errorMessage: state.tags.ui.error,
-    tags: state.tags.ui.listedTags.map(id => state.tags.entities.byId[id])
+    errorMessage: state.entities.error,
+    tags: state.tags.listedTags
   }),
   dispatch => ({ actions: bindActionCreators(TagActions, dispatch) })
 )(TagsList);

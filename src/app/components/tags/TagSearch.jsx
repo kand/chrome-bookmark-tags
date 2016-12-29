@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import * as TagActions from 'app/actions/TagActions';
 import { store } from 'Store';
+import { getEntitiesOfType } from 'app/Utils';
 
 export default class TagSearch extends React.Component {
 
@@ -19,12 +20,12 @@ export default class TagSearch extends React.Component {
     event.preventDefault();
 
     let term = event.target.value;
-    let tagsEntities = store.getState().tags.entities;
+    let entities = store.getState().entities;
+    let tagsEntities = getEntitiesOfType(entities.allIds, entities.byId, TagActions.TAG_ENTITY_TYPE);
 
     let results = [];
     if (term) {
-      results = tagsEntities.allIds
-        .map(id => tagsEntities.byId[id])
+      results = tagsEntities
         .filter(tag => {
           return tag.title.includes(term);
         })

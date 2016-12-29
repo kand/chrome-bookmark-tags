@@ -1,64 +1,61 @@
 import { combineReducers } from 'redux';
 
+import { getEntitiesOfType } from 'app/Utils';
 import {
-  CREATE_TAG_SUCCESS,
-  DELETE_TAG_SUCCESS,
-  FETCH_TAGS_SUCCESS,
-  TAGS_LIST_UPDATED,
-  TAG_ACTION_FAIL,
-  TAG_STORAGE_OPERATION_START,
-  UPDATE_TAG_SUCCESS
+  TAG_ENTITY_TYPE,
+  TAGS_LIST_UPDATED
 } from 'app/actions/TagActions';
+import {
+  ENTITY_CREATE_SUCCESS,
+  ENTITY_DELETE_SUCCESS,
+  ENTITY_LIST_HYDRATE_SUCCESS,
+  ENTITY_UPDATE_SUCCESS
+} from 'app/actions/EntityActions';
 
-function ui (state = {
+export default function tags (state = {
   editingTagId: null,
-  error: '',
-  isFetching: false,
   listedTags: []
 }, action) {
 
   switch (action.type) {
 
-    case TAG_STORAGE_OPERATION_START:
+    case ENTITY_LIST_HYDRATE_SUCCESS:
       return {
         ...state,
         ...{
-          isFetching: true,
-          error: ''
+          listedTags: getEntitiesOfType(Object.keys(action.entities), action.entities, TAG_ENTITY_TYPE)
         }
       };
 
-    case FETCH_TAGS_SUCCESS:
     case TAGS_LIST_UPDATED:
       return {
         ...state,
         ...{
-          isFetching: false,
           listedTags: action.listedTags
         }
       };
 
-    case CREATE_TAG_SUCCESS:
+    case ENTITY_CREATE_SUCCESS:
+      if (action.payload.entityType !== TAG_ENTITY_TYPE) {
+        return state;
+      }
+
       return {
         ...state,
         ...{
-          listedTags: state.listedTags.concat(action.payload.id)
+          listedTags: state.listedTags.concat(action.payload)
         }
       };
 
-   case DELETE_TAG_SUCCESS:
-      return {
-        ...state,
-        ...{
-          listedTags: state.listedTags.filter(tagId => tagId !== action.payload.id)
-        }
-      };
+   case ENTITY_DELETE_SUCCESS:
+      if (action.payload.entityType !== TAG_ENTITY_TYPE) {
+        return state;
+      }
 
-    case TAG_ACTION_FAIL:
       return {
         ...state,
         ...{
-          error: action.error
+          listedTags: state.listedTags.filter(tag => tag.id !== action.payload.id)
         }
       };
 
@@ -66,71 +63,4 @@ function ui (state = {
       return state;
   }
 };
-
-function entities (state = {
-  byId: {},
-  allIds: []
-}, action) {
-
-  switch (action.type) {
-
-    case FETCH_TAGS_SUCCESS:
-      return {
-        ...state,
-        ...{
-          byId: action.tags,
-          allIds: Object.keys(action.tags)
-        }
-      };
-
-    case CREATE_TAG_SUCCESS:
-      return {
-        ...state,
-        ...{
-          byId: {
-            ...state.byId,
-            [action.payload.id]: action.payload
-          },
-          allIds: state.allIds.concat(action.payload.id)
-        }
-      };
-
-    case UPDATE_TAG_SUCCESS:
-      return {
-        ...state,
-        ...{
-          byId: {
-            ...state.byId,
-            [action.payload.id]: {
-              ...state.byId[action.payload.id],
-              ...action.payload
-            }
-          }
-        }
-      };
-
-    case DELETE_TAG_SUCCESS:
-      let byId = { ...state.byId };
-      delete byId[action.payload.id];
-
-      let allIds = Object.keys(byId);
-
-      return {
-        ...state,
-        ...{
-          byId,
-          allIds
-        }
-      };
-
-    default:
-      return state;
-  }
-}
-
-
-export default combineReducers({
-  ui,
-  entities
-});
 

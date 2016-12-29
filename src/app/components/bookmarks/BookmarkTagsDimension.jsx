@@ -54,7 +54,10 @@ export default connect(
 
     return {
       errorMessage: bookmarkTagRelations.ui.error,
-      tagsById: state.tags.entities.byId,
+      tagsById: state.tags.listedTags.reduce((byId, tag) => ({
+        ...byId,
+        [tag.id]: tag
+      }), {}),
       relations
     };
   },
