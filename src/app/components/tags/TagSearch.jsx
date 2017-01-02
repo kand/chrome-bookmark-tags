@@ -21,7 +21,7 @@ export default class TagSearch extends React.Component {
 
     let term = event.target.value;
     let entities = store.getState().entities;
-    let tagsEntities = getEntitiesOfType(entities.allIds, entities.byId, TagActions.TAG_ENTITY_TYPE);
+    let tagsEntities = getEntitiesOfType(entities, TagActions.TAG_ENTITY_TYPE);
 
     let results = [];
     if (term) {

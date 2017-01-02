@@ -30,10 +30,10 @@ export function tagDefaultComparator (t1, t2) {
   return keyComparator('id', t1, t2);
 };
 
-export function getEntitiesOfType (entityIds, entitiesById, entityType) {
+export function getEntitiesOfType (entityState, entityType) {
 
-  return entityIds.reduce((filteredList, currId) => {
-    let entity = entitiesById[currId];
+  return entityState.allIds.reduce((filteredList, currId) => {
+    let entity = entityState.byId[currId];
 
     if (entity.entityType === entityType) {
       return filteredList.concat(entity);

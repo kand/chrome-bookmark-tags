@@ -48,8 +48,7 @@ export default connect(
     let relations = [];
     if (ownProps.row) {
       relations = getEntitiesOfType(
-        state.entities.allIds,
-        state.entities.byId,
+        state.entities,
         BookmarkTagRelationActions.BOOKMARK_TAG_RELATION_ENTITY_TYPE
       )
         .filter(relation => relation.bookmarkId === ownProps.row.id)

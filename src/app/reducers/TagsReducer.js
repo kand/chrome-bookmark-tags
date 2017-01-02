@@ -21,7 +21,10 @@ export default function tags (state = {
       return {
         ...state,
         ...{
-          listedTags: getEntitiesOfType(Object.keys(action.entities), action.entities, TAG_ENTITY_TYPE)
+          listedTags: getEntitiesOfType({
+            allIds: Object.keys(action.entities),
+            byId: action.entities
+          }, TAG_ENTITY_TYPE)
         }
       };
 

@@ -42,7 +42,7 @@ export function fetchBookmarks () {
       .then(flattenBookmarksTree)
       .then(bookmarks => {
         let entities = getState().entities;
-        let relations = getEntitiesOfType(entities.allIds, entities.byId, BOOKMARK_TAG_RELATION_ENTITY_TYPE);
+        let relations = getEntitiesOfType(entities, BOOKMARK_TAG_RELATION_ENTITY_TYPE);
 
         let bookmarkIds = Object.keys(bookmarks);
 

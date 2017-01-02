@@ -47,7 +47,7 @@ export function deleteTag (tagData) {
     dispatch(deleteEntity(tagData))
       .then(() => {
         let entities = getState().entities;
-        let relations = getEntitiesOfType(entities.allIds, entities.byId, BOOKMARK_TAG_RELATION_ENTITY_TYPE);
+        let relations = getEntitiesOfType(entities, BOOKMARK_TAG_RELATION_ENTITY_TYPE);
 
         relations
           .filter(relation => relation.tagId === tagData.id)
@@ -68,7 +68,7 @@ export function sortTags (comparator) {
 
   return function (dispatch, getState) {
     let entities = getState().entities;
-    let tags = getEntitiesOfType(entities.allIds, entities.byId, TAG_ENTITY_TYPE);
+    let tags = getEntitiesOfType(entities, TAG_ENTITY_TYPE);
 
     dispatch(updateTagsList(tags.sort(comparator)));
   };
