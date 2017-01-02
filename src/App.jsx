@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import { store } from 'Store';
 import { fetchBookmarks } from 'app/actions/BookmarkActions';
-import { fetchTags } from 'app/actions/TagActions';
+import { fetchEntities } from 'app/actions/EntityActions';
 import { fetchBookmarkTagRelations } from 'app/actions/BookmarkTagRelationActions';
 import AppRoot from 'app/components/AppRoot';
 
@@ -13,9 +13,9 @@ root.id = 'root';
 
 document.body.appendChild(root);
 
+store.dispatch(fetchEntities());
+
 store.dispatch(fetchBookmarks());
-store.dispatch(fetchTags());
-store.dispatch(fetchBookmarkTagRelations());
 
 ReactDOM.render(
   <Provider store={store}>

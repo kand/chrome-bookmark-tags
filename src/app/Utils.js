@@ -30,6 +30,19 @@ export function tagDefaultComparator (t1, t2) {
   return keyComparator('id', t1, t2);
 };
 
+export function getEntitiesOfType (entityState, entityType) {
+
+  return entityState.allIds.reduce((filteredList, currId) => {
+    let entity = entityState.byId[currId];
+
+    if (entity.entityType === entityType) {
+      return filteredList.concat(entity);
+    }
+
+    return filteredList;
+  }, []);
+};
+
 function getNodePathFromMapping (node, nodeMap) {
   let nodePathParts = [];
   let currentParent = nodeMap[node.parentId];
@@ -76,12 +89,5 @@ export function getSortedBookmarkIds (bookmarksById, comparator = bookmarkDefaul
     .map(key => bookmarksById[key])
     .sort(comparator)
     .map(bookmark => bookmark.id);
-};
-
-export function getSortedTagIds (tagsById, comparator = tagDefaultComparator) {
-  return Object.keys(tagsById)
-    .map(key => tagsById[key])
-    .sort(comparator)
-    .map(tag => tag.id);
 };
 

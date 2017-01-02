@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { getEntitiesOfType } from 'app/Utils';
 import * as TagActions from 'app/actions/TagActions';
 import Table from 'app/components/table/Table';
 import TableKeyDimension from 'app/components/table/TableKeyDimension';
@@ -15,8 +16,6 @@ class TagsList extends React.Component {
     this.state = {
       newTagTitle: ''
     };
-
-    this.props.actions.fetchTags();
   }
 
   addTag (event) {
@@ -78,8 +77,8 @@ class TagsList extends React.Component {
 
 export default connect(
   state => ({
-    errorMessage: state.tags.ui.error,
-    tags: state.tags.ui.listedTags.map(id => state.tags.entities.byId[id])
+    errorMessage: state.entities.error,
+    tags: state.tags.listedTagIds.map(id => state.entities.byId[id])
   }),
   dispatch => ({ actions: bindActionCreators(TagActions, dispatch) })
 )(TagsList);

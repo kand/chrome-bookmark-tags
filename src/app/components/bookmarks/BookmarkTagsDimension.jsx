@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { getEntitiesOfType } from 'app/Utils';
 import BookmarkKeyDimension from 'app/components/bookmarks/BookmarkKeyDimension';
 import TagSearch from 'app/components/tags/TagSearch';
 import * as BookmarkTagRelationActions from 'app/actions/BookmarkTagRelationActions';
@@ -23,7 +24,7 @@ class BookmarkTagsDimension extends BookmarkKeyDimension {
     let tagElements = this.props.relations
       .map(relation => (
         <li key={relation.id}>
-          <span>{this.props.tagsById[relation.tagId].title}</span>
+          <span>{relation.tag.title}</span>
           <button onClick={this.deleteRelation.bind(this, relation)}>delete</button>
         </li>
       ));
@@ -43,20 +44,21 @@ class BookmarkTagsDimension extends BookmarkKeyDimension {
 
 export default connect(
   (state, ownProps) => {
-    let bookmarkTagRelations = state.bookmarkTagRelations;
 
     let relations = [];
     if (ownProps.row) {
-      relations = bookmarkTagRelations.entities.allIds
-        .map(id => bookmarkTagRelations.entities.byId[id])
-        .filter(relation => relation.bookmarkId === ownProps.row.id);
+      relations = getEntitiesOfType(
+        state.entities,
+        BookmarkTagRelationActions.BOOKMARK_TAG_RELATION_ENTITY_TYPE
+      )
+        .filter(relation => relation.bookmarkId === ownProps.row.id)
+        .map(relation => ({
+          ...relation,
+          tag: { ...state.entities.byId[relation.tagId] }
+        }));
     }
 
-    return {
-      errorMessage: bookmarkTagRelations.ui.error,
-      tagsById: state.tags.entities.byId,
-      relations
-    };
+    return { relations };
   },
   dispatch => ({ actions: bindActionCreators(BookmarkTagRelationActions, dispatch) })
 )(BookmarkTagsDimension);

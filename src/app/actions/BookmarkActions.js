@@ -1,5 +1,8 @@
+import { BOOKMARK_TAG_RELATION_ENTITY_TYPE } from 'app/actions/BookmarkTagRelationActions';
+import { deleteEntity } from 'app/actions/EntityActions';
 import {
   flattenBookmarksTree,
+  getEntitiesOfType,
   getSortedBookmarkIds
 } from 'app/Utils';
 
@@ -8,6 +11,7 @@ export const FETCH_BOOKMARKS_SUCCESS = 'FETCH_BOOKMARKS_SUCCESS';
 export const BOOKMARKS_LIST_UPDATED = 'BOOKMARKS_LIST_UPDATED';
 
 export function fetchBookmarksStart () {
+
   return {
     type: FETCH_BOOKMARKS_START
   };
@@ -25,7 +29,7 @@ export function fetchBookmarksSuccess (bookmarks) {
 
 export function fetchBookmarks () {
 
-  return function (dispatch) {
+  return (dispatch, getState) => {
 
     dispatch(fetchBookmarksStart());
 
@@ -36,13 +40,25 @@ export function fetchBookmarks () {
       });
     }))
       .then(flattenBookmarksTree)
+      .then(bookmarks => {
+        let entities = getState().entities;
+        let relations = getEntitiesOfType(entities, BOOKMARK_TAG_RELATION_ENTITY_TYPE);
+
+        let bookmarkIds = Object.keys(bookmarks);
+
+        relations
+          .filter(relation => !bookmarkIds.includes(relation.bookmarkId))
+          .forEach(relation => dispatch(deleteEntity(relation)));
+
+        return bookmarks;
+      })
       .then(bookmarks => dispatch(fetchBookmarksSuccess(bookmarks)));
   };
 };
 
 export function sortBookmarks (comparator) {
 
-  return function (dispatch, getState) {
+  return (dispatch, getState) => {
     let state = getState();
     let listedBookmarks = getSortedBookmarkIds(state.bookmarks.entities.byId, comparator)
 
