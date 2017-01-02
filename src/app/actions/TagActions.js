@@ -56,10 +56,10 @@ export function deleteTag (tagData) {
   };
 }
 
-export function updateTagsList (listedTags) {
+export function updateTagsList (listedTagIds) {
 
   return {
-    listedTags,
+    listedTagIds,
     type: TAGS_LIST_UPDATED
   };
 };

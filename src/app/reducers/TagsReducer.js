@@ -12,7 +12,7 @@ import {
 
 export default function tags (state = {
   editingTagId: null,
-  listedTags: []
+  listedTagIds: []
 }, action) {
 
   switch (action.type) {
@@ -21,10 +21,11 @@ export default function tags (state = {
       return {
         ...state,
         ...{
-          listedTags: getEntitiesOfType({
+          listedTagIds: getEntitiesOfType({
             allIds: Object.keys(action.entities),
             byId: action.entities
           }, TAG_ENTITY_TYPE)
+            .map(tag => tag.id)
         }
       };
 
@@ -32,7 +33,7 @@ export default function tags (state = {
       return {
         ...state,
         ...{
-          listedTags: action.listedTags
+          listedTagIds: action.listedTagIds
         }
       };
 
@@ -44,7 +45,7 @@ export default function tags (state = {
       return {
         ...state,
         ...{
-          listedTags: state.listedTags.concat(action.payload)
+          listedTagIds: state.listedTagIds.concat(action.payload)
         }
       };
 
@@ -53,13 +54,13 @@ export default function tags (state = {
         return state;
       }
 
-      let listedTags = state.listedTags
+      let listedTagIds = state.listedTagIds
         .map(tag => tag.id === action.payload.id ? action.payload : tag);
 
       return {
         ...state,
         ...{
-          listedTags
+          listedTagIds
         }
       };
 
@@ -71,7 +72,7 @@ export default function tags (state = {
       return {
         ...state,
         ...{
-          listedTags: state.listedTags.filter(tag => tag.id !== action.payload.id)
+          listedTagIds: state.listedTagIds.filter(tag => tag.id !== action.payload.id)
         }
       };
 
