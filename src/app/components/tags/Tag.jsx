@@ -8,7 +8,7 @@ class Tag extends React.Component {
   }
 }
 
-Tag.propType = {
+Tag.propTypes = {
   tag: React.PropTypes.object.isRequired
 };
 
