@@ -17,7 +17,7 @@ document.body.appendChild(root);
 store.dispatch(fetchEntities());
 store.dispatch(fetchBookmarks());
 
-setupBookmarkBrowserEventListeners();
+setupBookmarkBrowserEventListeners(store);
 
 ReactDOM.render(
   <Provider store={store}>

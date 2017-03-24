@@ -1,8 +1,8 @@
+import * as BookmarkActions from 'app/actions/BookmarkActions';
 
-export default function setupBookmarkBrowserEventListeners () {
+export default function setupBookmarkBrowserEventListeners (store) {
 
-  chrome.bookmarks.onCreated.addListener(() => console.log('created'));
-  chrome.bookmarks.onRemoved.addListener(() => console.log('removed'));
-  chrome.bookmarks.onChanged.addListener(() => console.log('updated'));
-}
-
+  chrome.bookmarks.onCreated.addListener(() => store.dispatch(BookmarkActions.fetchBookmarks()));
+  chrome.bookmarks.onRemoved.addListener(() => store.dispatch(BookmarkActions.fetchBookmarks()));
+  chrome.bookmarks.onChanged.addListener(() => store.dispatch(BookmarkActions.fetchBookmarks()));
+};
