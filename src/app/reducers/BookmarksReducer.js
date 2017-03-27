@@ -5,10 +5,12 @@ import {
   FETCH_BOOKMARKS_SUCCESS,
   BOOKMARKS_LIST_UPDATED,
 } from 'app/actions/BookmarkActions';
+import * as Utils from 'app/Utils';
 
 function ui (state = {
-  isFetching: false,
   error: '',
+  isFetching: false,
+  listSortComparator: Utils.bookmarkDefaultComparator,
   listedBookmarks: []
 }, action) {
 
@@ -28,6 +30,7 @@ function ui (state = {
         ...state,
         ...{
           isFetching: false,
+          listSortComparator: action.listSortComparator || state.listSortComparator,
           listedBookmarks: action.listedBookmarks
         }
       };

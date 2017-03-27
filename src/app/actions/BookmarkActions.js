@@ -52,7 +52,8 @@ export function fetchBookmarks () {
 
         return bookmarks;
       })
-      .then(bookmarks => dispatch(fetchBookmarksSuccess(bookmarks)));
+      .then(bookmarks => dispatch(fetchBookmarksSuccess(bookmarks)))
+      .then(() => dispatch(sortBookmarks()));
   };
 };
 
@@ -60,17 +61,18 @@ export function sortBookmarks (comparator) {
 
   return (dispatch, getState) => {
     let state = getState();
-    let listedBookmarks = getSortedBookmarkIds(state.bookmarks.entities.byId, comparator)
+    let newComparator = comparator || state.bookmarks.ui.listSortComparator;
+    let listedBookmarks = getSortedBookmarkIds(state.bookmarks.entities.byId, newComparator);
 
-    dispatch(updateBookmarksList(listedBookmarks));
+    dispatch(updateBookmarksList(listedBookmarks, newComparator));
   };
 };
 
-export function updateBookmarksList (listedBookmarks) {
+export function updateBookmarksList (listedBookmarks, listSortComparator) {
 
   return {
+    listSortComparator,
     listedBookmarks,
     type: BOOKMARKS_LIST_UPDATED
   };
 };
-

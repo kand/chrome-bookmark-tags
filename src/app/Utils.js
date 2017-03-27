@@ -84,7 +84,7 @@ export function flattenBookmarksTree (tree) {
   return bookmarks;
 };
 
-export function getSortedBookmarkIds (bookmarksById, comparator = bookmarkDefaultComparator) {
+export function getSortedBookmarkIds (bookmarksById, comparator) {
   return Object.keys(bookmarksById)
     .map(key => bookmarksById[key])
     .sort(comparator)
