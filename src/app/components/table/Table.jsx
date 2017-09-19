@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 
-export default class Table extends React.Component {
+export default class Table extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {};
+  static propTypes = {
+    children: PropTypes.arrayOf(PropTypes.element).isRequired,
+    rows: PropTypes.arrayOf(PropTypes.object).isRequired
   }
 
   onSortComplete (rowKey) {
@@ -17,7 +17,7 @@ export default class Table extends React.Component {
       dim => React.cloneElement(dim, {
         renderAsHeader: true,
         onSortComplete: this.onSortComplete.bind(this),
-        isCurrentlySortedBy: this.state.currentSortRowKey === dim.props.rowKey
+        isCurrentlySortedBy: this.state && this.state.currentSortRowKey === dim.props.rowKey
       })
     );
 
@@ -44,9 +44,3 @@ export default class Table extends React.Component {
     );
   }
 }
-
-Table.propTypes = {
-  children: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
-  rows: React.PropTypes.arrayOf(React.PropTypes.object).isRequired
-};
-

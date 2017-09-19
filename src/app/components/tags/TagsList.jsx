@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,14 +8,10 @@ import Table from 'app/components/table/Table';
 import TableKeyDimension from 'app/components/table/TableKeyDimension';
 import TagToolsDimension from 'app/components/tags/TagToolsDimension';
 
-class TagsList extends React.Component {
+class TagsList extends Component {
 
-  constructor (props) {
-    super(props);
-
-    this.state = {
-      newTagTitle: ''
-    };
+  state = {
+    newTagTitle: ''
   }
 
   addTag (event) {
@@ -41,7 +37,6 @@ class TagsList extends React.Component {
   renderTable () {
     return (
       <div>
-        <div></div>
         <Table rows={this.props.tags}>
           <TableKeyDimension
               label="Title"
@@ -59,6 +54,7 @@ class TagsList extends React.Component {
   }
 
   render () {
+    console.log(this.props.tags)
     return (
       <div>
         <h2>Tags</h2>

@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 
-export default class TableDimension extends React.Component {
+export default class TableDimension extends Component {
 
-  constructor (props) {
-    super(props);
-    this.state = {
-      currentSortMode: 0,
-      sorters: []
-    };
+  static propTypes = {
+    label: PropTypes.string.isRequired,
+    onSort: PropTypes.func,
+    isCurrentlySortedBy: PropTypes.bool
   }
+
+  state = {
+    currentSortMode: 0,
+    sorters: []
+  };
 
   doSort () {
     let incSortMode = this.state.currentSortMode + 1;
@@ -49,6 +52,10 @@ export default class TableDimension extends React.Component {
   }
 
   renderAsRowDim (row) {
+    if (!row) {
+      return null;
+    }
+
     return <td>{this.renderValue(this.props.row)}</td>;
   }
 
@@ -57,11 +64,4 @@ export default class TableDimension extends React.Component {
       this.renderAsHeader() :
       this.renderAsRowDim(this.props.row);
   }
-};
-
-TableDimension.propTypes = {
-  label: React.PropTypes.string.isRequired,
-  onSort: React.PropTypes.func,
-  isCurrentlySortedBy: React.PropTypes.bool
-};
-
+}

@@ -132,9 +132,9 @@ export function deleteEntity (entityData) {
     dispatch(entityOperationStart());
 
     return new Promise(resolve => {
-      chrome.storage.local.remove(entityData.id, () => resolve());
+      chrome.storage.local.remove(entityData.id, () => resolve(entityData));
     })
-      .then(() => dispatch(entityDeleteSuccess(entityData)));
+      .then((entityData) => dispatch(entityDeleteSuccess(entityData)));
   };
 }
 

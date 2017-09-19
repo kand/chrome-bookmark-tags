@@ -9,25 +9,23 @@ import {
 
 export default class TableKeyDimension extends TableDimension {
 
-  getDefaultComparator () {
-    return nullComparator;
+  static propTypes = {
+    rowKey: React.PropTypes.string.isRequired
   }
 
-  constructor (props) {
-    super(props);
-    this.state.sorters = [
+  state = {
+    sorters: [
       this.getDefaultComparator(),
       keyComparator.bind(null, this.props.rowKey),
       keyComparatorReverse.bind(null, this.props.rowKey)
     ]
   }
 
+  getDefaultComparator () {
+    return nullComparator;
+  }
+
   renderValue (row) {
     return row[this.props.rowKey];
   }
 }
-
-TableKeyDimension.propTypes = {
-  rowKey: React.PropTypes.string.isRequired
-};
-
