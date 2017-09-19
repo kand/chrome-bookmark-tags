@@ -14,7 +14,7 @@ Bookmark, tag, take notes.
 
 4. Ensure `Developer mode` checkbox is checked
 
-5. Click `Load unpacked extension...` and select the top level folder of this repo
+5. Click `Load unpacked extension...` and select the top level folder of this repo (you'll need to have the files built)
 
 6. Enable `Bookmark Tags` extension which should now be listed in the extensions list
 
