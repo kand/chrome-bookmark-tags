@@ -22,32 +22,33 @@ module.exports = [{
   module: {
     loaders: [{
       test: /\.jsx?$/,
-      loader: 'babel',
+      loader: 'babel-loader',
       query: {
         plugins: [
           'syntax-jsx',
-          'transform-react-jsx'
+          'transform-react-jsx',
+          'transform-object-rest-spread',
+          'transform-class-properties'
         ],
         presets: [
-          'latest',
-          'react',
-          'stage-3'
+          'env',
+          'react'
         ]
       }
     }]
   },
   resolve: {
     extensions: [
-      '',
       '.js',
       '.jsx'
     ],
-    root: [
-      path.resolve('./src')
+    modules: [
+      path.resolve('./src'),
+      'node_modules'
     ]
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js'),
+    new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js'}),
     new HtmlWebpackPlugin({
       title: 'Bookmarks'
     })
